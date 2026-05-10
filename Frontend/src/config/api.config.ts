@@ -8,7 +8,7 @@ export const API_CONFIG = {
   HEADERS: {
     "Content-Type": "application/json",
   },
-} as const;
+} as const;        
 
 export const ENDPOINTS = {
   AUTH: {
