@@ -1,22 +1,17 @@
-# ============================================
 # OS FILES
-# ============================================
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# ============================================
+
 # EDITOR & IDE FILES
-# ============================================
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# ============================================
 # ENVIRONMENT FILES
-# ============================================
 **/.env
 **/.env.local
 **/.env.*.local
@@ -25,9 +20,8 @@ desktop.ini
 .env.development
 .env.production
 
-# ============================================
+
 # LOGS
-# ============================================
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -35,9 +29,8 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# ============================================
+
 # BACKEND SPECIFIC
-# ============================================
 Backend/node_modules/
 Backend/dist/
 Backend/build/
@@ -47,9 +40,8 @@ Backend/uploads/
 Backend/coverage/
 Backend/.nyc_output/
 
-# ============================================
+
 # FRONTEND SPECIFIC
-# ============================================
 Frontend/node_modules/
 Frontend/dist/
 Frontend/build/
@@ -58,24 +50,15 @@ Frontend/out/
 Frontend/.vite/
 Frontend/coverage/
 
-# ============================================
+
 # TYPESCRIPT
-# ============================================
 *.tsbuildinfo
 
-# ============================================
+
 # MISCELLANEOUS
-# ============================================
 *.pid
 *.seed
 *.pid.lock
-
-# Package lock files (optional - depends on your workflow)
-# package-lock.json
-# yarn.lock
-# pnpm-lock.yaml
-
-# Temporary files
 *.tmp
 *.temp
 .cache/

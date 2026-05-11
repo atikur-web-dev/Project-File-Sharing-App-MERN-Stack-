@@ -69,27 +69,7 @@ export function emailVerificationTemplate(
                 </a>
               </p>
 
-              <p>Or copy and paste this link:</p>
-
-              <p style="word-break:break-all;
-                        background:#f8f9fa;
-                        padding:10px;
-                        border-radius:5px;
-                        font-family:monospace;
-                        font-size:13px;">
-                ${verificationUrl}
-              </p>
-
-              <!-- Warning -->
-              <p style="color:#e74c3c; font-weight:bold; display:flex; align-items:center; gap:6px;">
-
-                <!-- Warning Icon -->
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="#e74c3c">
-                  <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
-                </svg>
-
-                This link will expire in 5 minutes.
-              </p>
+             
 
               <p>If you didn't create an account, you can safely ignore this email.</p>
 

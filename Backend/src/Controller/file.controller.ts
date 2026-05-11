@@ -1,111 +1,184 @@
-// src/controllers/file.controller.ts
-// ফাইল আপলোড কন্ট্রোলার
-
-import type { Request, Response, NextFunction } from "express";
+import type { Response, Request, NextFunction } from "express";
 import { ValidationError } from "../Utils/errors/httpErrors.ts";
-import { CreatedResponse } from "../Utils/success/httpSuccess.ts";
 import { config } from "../Config/config.ts";
 import {
   singleFileUploadService,
   multipleFileUploadService,
   type FileUploadResponse,
 } from "../Services/fileUpload.service.ts";
-
-// ============================================
-// File Upload Controller
-// ============================================
-/**
- * ফাইল আপলোড কন্ট্রোলার
- * 
- * ⭐⭐⭐ ফ্রন্টএন্ড সংযোগ পয়েন্ট ⭐⭐⭐
- * 
- * ফ্রন্টএন্ড থেকে API কল:
- * ```javascript
- * const formData = new FormData();
- * formData.append('sharedFile', fileInput.files[0]); // সিঙ্গেল
- * // অথবা একাধিক ফাইল:
- * for (let file of fileInput.files) {
- *   formData.append('sharedFile', file);
- * }
- * 
- * const response = await fetch('http://localhost:8000/api/v1/files', {
- *   method: 'POST',
- *   credentials: 'include', // অথেনটিকেশন থাকলে
- *   body: formData // Content-Type অটোমেটিক multipart/form-data হবে
- * });
- * 
- * const data = await response.json();
- * // data.data.fileShareUrl - এই URL দিয়ে ফাইল শেয়ার/ডাউনলোড করা যাবে
- * ```
- * 
- * ফ্রন্টএন্ড টিমের জন্য নোট:
- * - Endpoint: POST /api/v1/files
- * - Content-Type: multipart/form-data (ব্রাউজার অটো সেট করবে)
- * - Field Name: "sharedFile" (একই নামে একাধিক ফাইল পাঠানো যাবে)
- * - Max Files: 5 (একবারে)
- * - Max Size: 5MB per file
- * - Response: fileShareUrl পাবেন (যেমন: /files/550e8400-e29b-41d4-a716-446655440000)
- */
+import {
+  getFileInfoService,
+  getMultipleFilesInfoService,
+} from "../Services/getFileInfo.service.ts";
+import { NotFoundError } from "../Utils/errors/httpErrors.ts";
+import { OkResponse } from "../Utils/success/httpSuccess.ts";
+import fs from "fs";
+import path from "path";
+// FILE UPLOAD CONTROLLE
 export const fileUpload = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    // Step 1: multer file extract
+    const files = req.files as Express.Multer.File[];
+
+    // Step 2: file validation
+    if (!files || files.length === 0) {
+      throw new ValidationError(
+        {},
+        "Please select at least one file to upload.",
+      );
+    }
+
+    // Step 3: service call (single or multiple)
+    let uploadResult: FileUploadResponse | FileUploadResponse[];
+
+    if (files.length === 1) {
+      uploadResult = await singleFileUploadService(files[0]);
+    } else {
+      uploadResult = await multipleFileUploadService(files);
+    }
+
+    // Step 4: response formatter
+    const formatResponse = (file: FileUploadResponse) => {
+      return {
+        fileName: file.fileName,
+        originalName: file.originalName,
+        size: file.size,
+        sizeInMB: (file.size / (1024 * 1024)).toFixed(2) + " MB",
+        mimetype: file.mimetype,
+        uuid: file.uuid,
+
+        fileShareUrl: `${config.APP_URL}${file.fileShareUrl}`,
+        downloadUrl: `${config.APP_URL}/api/v1/files/download/${file.uuid}`,
+      };
+    };
+
+    // Step 5: single vs multiple response handling
+    const responseData = Array.isArray(uploadResult)
+      ? uploadResult.map(formatResponse)
+      : formatResponse(uploadResult);
+
+    // Step 6: success response
+    res.status(201).json({
+      success: true,
+      message: "File uploaded successfully",
+      data: responseData,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getFileInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    let { uuid } = req.params;
+
+    if (!uuid) {
+      throw new NotFoundError({}, "File identifier is required.");
+    }
+
+    // multiple UUID support (comma separated)
+    if (uuid.includes(",")) {
+      const uuidArray = (Array.isArray(uuid) ? uuid[0] : uuid)
+        .split(",")
+        .map((id) => id.trim());
+      const filesInfo = await getMultipleFilesInfoService(uuidArray);
+
+      return res
+        .status(200)
+        .json(
+          new OkResponse(
+            { files: filesInfo },
+            `Found ${filesInfo.length} file(s)`,
+          ),
+        );
+    }
+
+    // single file info
+    const fileInfo = await getFileInfoService(
+      Array.isArray(uuid) ? uuid[0] : uuid,
+    );
+
+    res
+      .status(200)
+      .json(
+        new OkResponse(fileInfo, "File information retrieved successfully"),
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const downloadFile = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    let { uuid } = req.params;
+
+    if (!uuid || Array.isArray(uuid)) {
+      throw new NotFoundError({}, "Invalid file identifier.");
+    }
+
+    const file = await getFileInfoService(uuid);
+    const uploadDir = path.resolve(process.cwd(), "src", "tmp", "my-uploads");
+    const filePath = path.join(uploadDir, file.fileName);
+    if (!fs.existsSync(filePath)) {
+      throw new NotFoundError(
+        {},
+        "File not found on server. It may have been deleted.",
+      );
+    }
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="${encodeURIComponent(file.originalName)}"`,
+    );
+
+    res.setHeader("Content-Type", file.mimetype || "application/octet-stream");
+    res.setHeader("Content-Length", file.size);
+    res.download(filePath, file.originalName, (err) => {
+      if (err) {
+        console.error("Download error:", err);
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const viewFile = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    // ============================================
-    // Multer থেকে ফাইল পাওয়া
-    // ============================================
-    // upload.array() মিডলওয়্যার req.files এ ফাইলের অ্যারে রাখে
-    const files = req.files as Express.Multer.File[];
+    let { uuid } = req.params;
 
-    // ফাইল চেক
-    if (!files || files.length === 0) {
-      throw new ValidationError({}, "Please select at least one file to upload.");
+    if (!uuid || Array.isArray(uuid)) {
+      throw new NotFoundError({}, "Invalid file identifier.");
     }
 
-    // ============================================
-    // ফাইল প্রসেসিং (সিঙ্গেল বা মাল্টিপল)
-    // ============================================
-    let uploadResult: FileUploadResponse | FileUploadResponse[];
+    const file = await getFileInfoService(uuid);
+    const uploadDir = path.resolve(process.cwd(), "src", "tmp", "my-uploads");
+    const filePath = path.join(uploadDir, file.fileName);
 
-    if (files.length === 1) {
-      // সিঙ্গেল ফাইল
-      uploadResult = await singleFileUploadService(files[0]);
-    } else {
-      // মাল্টিপল ফাইল
-      uploadResult = await multipleFileUploadService(files);
+    if (!fs.existsSync(filePath)) {
+      throw new NotFoundError({}, "File not found on server.");
     }
-
-    // ============================================
-    // রেসপন্স ফরম্যাটিং
-    // ============================================
-    // ফ্রন্টএন্ডের জন্য সম্পূর্ণ URL তৈরি
-    const formatResponse = (file: FileUploadResponse) => ({
-      fileName: file.fileName,
-      originalName: file.originalName,
-      size: file.size,
-      sizeInMB: (file.size / (1024 * 1024)).toFixed(2) + " MB", // হিউম্যান রিডেবল
-      mimetype: file.mimetype,
-      uuid: file.uuid,
-      // ⭐ ফ্রন্টএন্ড: এই URL দিয়ে ফাইল অ্যাক্সেস করবে
-      fileShareUrl: `${config.APP_URL}/api/v1${file.fileShareUrl}`,
-      downloadUrl: `${config.APP_URL}/api/v1/files/download/${file.uuid}`,
-    });
-
-    const responseData = Array.isArray(uploadResult)
-      ? uploadResult.map(formatResponse)
-      : formatResponse(uploadResult);
-
-    // ============================================
-    // সফল রেসপন্স
-    // ============================================
-    const message = Array.isArray(uploadResult)
-      ? `${uploadResult.length} files uploaded successfully`
-      : "File uploaded successfully";
-
-    res
-      .status(201)
-      .json(new CreatedResponse({ files: responseData }, message));
+    res.setHeader(
+      "Content-Disposition",
+      `inline; filename="${encodeURIComponent(file.originalName)}"`
+    );
+    res.setHeader("Content-Type", file.mimetype || "application/octet-stream");
+    res.sendFile(filePath);
 
   } catch (error) {
     next(error);
