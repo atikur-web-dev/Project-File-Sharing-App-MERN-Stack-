@@ -1,55 +1,42 @@
-// Frontend/src/api/analyticsApi.ts
-// src/api/analyticsApi.ts
-// এই ফাইলের কাজ: অ্যানালিটিক্স সম্পর্কিত API কলের ফাংশন
-// ইউজারের ফাইল থেকে ডাউনলোড স্ট্যাটিসটিক্স ক্যালকুলেট করে
-
-import {api} from "./axios";
+import { api } from "./axios";
 import type { FileType } from "../types";
 
-// ============================================================
-// ফাইল ডাউনলোড তথ্য সহ টাইপ
-// ============================================================
-interface FileWithDownloadCount extends FileType {
+export interface FileWithDownloadCount extends FileType {
   downloadCount?: number;
 }
 
-// ============================================================
-// ডাউনলোড স্ট্যাটিসটিক্স টাইপ
-// ============================================================
 export interface DownloadStats {
-  totalDownloads: number;  // মোট ডাউনলোড
-  filesByDownloads: {      // ফাইল অনুযায়ী ডাউনলোড
-    fileName: string;      // ফাইলের নাম
-    downloadCount: number; // কতবার ডাউনলোড হয়েছে
-    uuid: string;          // ফাইলের ইউনিক আইডি
+  totalDownloads: number;
+  filesByDownloads: {
+    fileName: string;
+    downloadCount: number;
+    uuid: string;
   }[];
 }
 
-// ============================================================
-// GET /api/v1/files/my?limit=100 (সব ফাইল থেকে অ্যানালিটিক্স)
-// ============================================================
+// Extracted configuration for maintainability
+const MAX_FILES_TO_FETCH = 100;
+const TOP_DISPLAY_LIMIT = 10;
+
 export const getDownloadStatsApi = async (): Promise<DownloadStats> => {
-  // সব ফাইল একবারে এনে ডাউনলোড কাউন্ট ক্যালকুলেট
   const response = await api.get<{ data: { files: FileWithDownloadCount[] } }>(
-    "/files/my?limit=100"
+    `/files/my?limit=${MAX_FILES_TO_FETCH}`
   );
 
-  const files = response.data.data.files;
+  // Optional chaining fallback guard against empty backend payloads
+  const files = response?.data?.data?.files || [];
 
-  // মোট ডাউনলোড ক্যালকুলেট
-  const totalDownloads = files.reduce((sum, file) => {
-    return sum + (file.downloadCount || 0);
-  }, 0);
+  // Clean, modern functional programming approach
+  const totalDownloads = files.reduce((sum, file) => sum + (file.downloadCount ?? 0), 0);
 
-  // ডাউনলোড অনুযায়ী সাজানো টপ ১০ ফাইল
   const filesByDownloads = files
     .map((file) => ({
-      fileName: file.originalName,
-      downloadCount: file.downloadCount || 0,
+      fileName: file.originalName || "Untitled File", // Fallback for missing names
+      downloadCount: file.downloadCount ?? 0,         // Nullish coalescing protection
       uuid: file.uuid,
     }))
-    .sort((a, b) => b.downloadCount - a.downloadCount) // বেশি ডাউনলোড আগে
-    .slice(0, 10); // প্রথম ১০টা
+    .sort((a, b) => b.downloadCount - a.downloadCount)
+    .slice(0, TOP_DISPLAY_LIMIT);
 
   return {
     totalDownloads,
