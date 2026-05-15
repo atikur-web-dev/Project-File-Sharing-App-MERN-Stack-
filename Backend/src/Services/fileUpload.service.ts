@@ -20,10 +20,12 @@ export interface FileUploadResponse {
   mimetype: string;
   uuid: string;
   fileShareUrl: string;
+  uploadedBy?: string;
 }
 
 export async function singleFileUploadService(
   file: UploadedFileData,
+  user?: string
 ): Promise<FileUploadResponse> {
   const fileUuid = uuidv4();
   //save matadate in DB of file
@@ -34,8 +36,12 @@ export async function singleFileUploadService(
     size: file.size,
     mimetype: file.mimetype,
     uuid: fileUuid,
-    whoUploaded: null,
+    whoUploaded: user || null,
   });
+  // Set user name by populate
+  if(user){
+    await savedFile.populate("whoUploaded", "displayName email")
+  }
 
   return {
     fileName: savedFile.fileName,
@@ -44,11 +50,13 @@ export async function singleFileUploadService(
     mimetype: savedFile.mimetype || file.mimetype,
     uuid: savedFile.uuid,
     fileShareUrl: `/files/${savedFile.uuid}`,
+    uploadedBy: savedFile.whoUploaded?.toString(),
   };
 }
 
 export async function multipleFileUploadService(
   files: UploadedFileData[],
+  user?: string
 ): Promise<FileUploadResponse[]> {
   const uploadPromises = files.map(async (file) => {
     const fileUuid = uuidv4();
@@ -60,7 +68,7 @@ export async function multipleFileUploadService(
       size: file.size,
       mimetype: file.mimetype,
       uuid: fileUuid,
-      whoUploaded: null,
+      whoUploaded: user || null,
     });
 
     return {
@@ -70,6 +78,7 @@ export async function multipleFileUploadService(
       mimetype: savedFile.mimetype || file.mimetype,
       uuid: savedFile.uuid,
       fileShareUrl: `/files/${savedFile.uuid}`,
+      uploadedBy: savedFile.whoUploaded?.toString(),
     };
   });
 
