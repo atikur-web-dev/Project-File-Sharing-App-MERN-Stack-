@@ -1,19 +1,21 @@
-import type { Response, Request, NextFunction } from "express";
-import { ValidationError } from "../Utils/errors/httpErrors.ts";
-import { config } from "../Config/config.ts";
+import type { Response, Request, NextFunction } from 'express';
+import { ValidationError } from '../Utils/errors/httpErrors.ts';
+import { config } from '../Config/config.ts';
 import {
   singleFileUploadService,
   multipleFileUploadService,
   type FileUploadResponse,
-} from "../Services/fileUpload.service.ts";
+} from '../Services/fileUpload.service.ts';
 import {
   getFileInfoService,
   getMultipleFilesInfoService,
-} from "../Services/getFileInfo.service.ts";
-import { NotFoundError } from "../Utils/errors/httpErrors.ts";
-import { OkResponse } from "../Utils/success/httpSuccess.ts";
-import fs from "fs";
-import path from "path";
+} from '../Services/getFileInfo.service.ts';
+import { NotFoundError } from '../Utils/errors/httpErrors.ts';
+import { OkResponse } from '../Utils/success/httpSuccess.ts';
+import fs from 'fs';
+import path from 'path';
+import { File } from '../Models/file.schema.ts';
+
 // FILE UPLOAD CONTROLLE
 export const fileUpload = async (
   req: Request,
@@ -28,10 +30,10 @@ export const fileUpload = async (
     if (!files || files.length === 0) {
       throw new ValidationError(
         {},
-        "Please select at least one file to upload.",
+        'Please select at least one file to upload.',
       );
     }
-
+    const userID = req.user?._id; // authenticate middleware is being set in req.user
     // Step 3: service call (single or multiple)
     let uploadResult: FileUploadResponse | FileUploadResponse[];
 
@@ -47,12 +49,12 @@ export const fileUpload = async (
         fileName: file.fileName,
         originalName: file.originalName,
         size: file.size,
-        sizeInMB: (file.size / (1024 * 1024)).toFixed(2) + " MB",
+        sizeInMB: (file.size / (1024 * 1024)).toFixed(2) + ' MB',
         mimetype: file.mimetype,
         uuid: file.uuid,
-
         fileShareUrl: `${config.APP_URL}${file.fileShareUrl}`,
         downloadUrl: `${config.APP_URL}/api/v1/files/download/${file.uuid}`,
+        uploadedBy: file.uploadedBy,
       };
     };
 
@@ -64,7 +66,7 @@ export const fileUpload = async (
     // Step 6: success response
     res.status(201).json({
       success: true,
-      message: "File uploaded successfully",
+      message: 'File uploaded successfully',
       data: responseData,
     });
   } catch (error) {
@@ -81,13 +83,13 @@ export const getFileInfo = async (
     let { uuid } = req.params;
 
     if (!uuid) {
-      throw new NotFoundError({}, "File identifier is required.");
+      throw new NotFoundError({}, 'File identifier is required.');
     }
 
     // multiple UUID support (comma separated)
-    if (uuid.includes(",")) {
+    if (uuid.includes(',')) {
       const uuidArray = (Array.isArray(uuid) ? uuid[0] : uuid)
-        .split(",")
+        .split(',')
         .map((id) => id.trim());
       const filesInfo = await getMultipleFilesInfoService(uuidArray);
 
@@ -109,7 +111,7 @@ export const getFileInfo = async (
     res
       .status(200)
       .json(
-        new OkResponse(fileInfo, "File information retrieved successfully"),
+        new OkResponse(fileInfo, 'File information retrieved successfully'),
       );
   } catch (error) {
     next(error);
@@ -125,28 +127,28 @@ export const downloadFile = async (
     let { uuid } = req.params;
 
     if (!uuid || Array.isArray(uuid)) {
-      throw new NotFoundError({}, "Invalid file identifier.");
+      throw new NotFoundError({}, 'Invalid file identifier.');
     }
 
     const file = await getFileInfoService(uuid);
-    const uploadDir = path.resolve(process.cwd(), "src", "tmp", "my-uploads");
+    const uploadDir = path.resolve(process.cwd(), 'src', 'tmp', 'my-uploads');
     const filePath = path.join(uploadDir, file.fileName);
     if (!fs.existsSync(filePath)) {
       throw new NotFoundError(
         {},
-        "File not found on server. It may have been deleted.",
+        'File not found on server. It may have been deleted.',
       );
     }
     res.setHeader(
-      "Content-Disposition",
+      'Content-Disposition',
       `attachment; filename="${encodeURIComponent(file.originalName)}"`,
     );
 
-    res.setHeader("Content-Type", file.mimetype || "application/octet-stream");
-    res.setHeader("Content-Length", file.size);
+    res.setHeader('Content-Type', file.mimetype || 'application/octet-stream');
+    res.setHeader('Content-Length', file.size);
     res.download(filePath, file.originalName, (err) => {
       if (err) {
-        console.error("Download error:", err);
+        console.error('Download error:', err);
       }
     });
   } catch (error) {
@@ -157,30 +159,66 @@ export const downloadFile = async (
 export const viewFile = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     let { uuid } = req.params;
 
     if (!uuid || Array.isArray(uuid)) {
-      throw new NotFoundError({}, "Invalid file identifier.");
+      throw new NotFoundError({}, 'Invalid file identifier.');
     }
 
     const file = await getFileInfoService(uuid);
-    const uploadDir = path.resolve(process.cwd(), "src", "tmp", "my-uploads");
+    const uploadDir = path.resolve(process.cwd(), 'src', 'tmp', 'my-uploads');
     const filePath = path.join(uploadDir, file.fileName);
 
     if (!fs.existsSync(filePath)) {
-      throw new NotFoundError({}, "File not found on server.");
+      throw new NotFoundError({}, 'File not found on server.');
     }
     res.setHeader(
-      "Content-Disposition",
-      `inline; filename="${encodeURIComponent(file.originalName)}"`
+      'Content-Disposition',
+      `inline; filename="${encodeURIComponent(file.originalName)}"`,
     );
-    res.setHeader("Content-Type", file.mimetype || "application/octet-stream");
+    res.setHeader('Content-Type', file.mimetype || 'application/octet-stream');
     res.sendFile(filePath);
-
   } catch (error) {
     next(error);
   }
+};
+
+// User file for logged user , i mean people who are my logged user, not random visitor and have profile, this controller is for them, the can see their uploaded files
+export const getMyFiles = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    // set authenticate middleware in req.user
+    const userID = req.user!._id;
+    // bring all the files from BD
+    const files = await File.find({ whoUploaded: userID })
+      .sort({ createdAt: -1 })
+      .lean();
+    // Response formatting
+    const formattedFiles = files.map((file) => ({
+      fileName: file.fileName,
+      originalName: file.originalName || file.fileName,
+      size: file.size,
+      sizeInMB: (file.size / (1024 * 1024)).toFixed(2) + ' MB',
+      mimetype: file.mimetype,
+      uuid: file.uuid,
+      fileShareUrl: `${config.APP_URL}${file.fileShareUrl}`,
+      downloadUrl: `${config.APP_URL}/api/v1/files/download/${file.uuid}`,
+      uploadedBy: file.createdAt,
+    }));
+    res.status(200).json(
+      new OkResponse(
+        {
+          files: formattedFiles,
+          total: formattedFiles.length,
+        },
+        'Your files retrieved successfully',
+      ),
+    );
+  } catch (error) {}
 };
