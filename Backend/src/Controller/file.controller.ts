@@ -16,7 +16,7 @@ import fs from 'fs';
 import path from 'path';
 import { File } from '../Models/file.schema.ts';
 
-// FILE UPLOAD CONTROLLE
+// FILE UPLOAD CONTROLLER
 export const fileUpload = async (
   req: Request,
   res: Response,
