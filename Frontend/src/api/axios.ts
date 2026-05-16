@@ -1,7 +1,4 @@
-import axios, {
-  AxiosError,
-  type InternalAxiosRequestConfig,
-} from "axios";
+import axios, { AxiosError, type InternalAxiosRequestConfig } from "axios";
 import { API_CONFIG } from "../config/api.config";
 
 // Extend axios request config with custom retry flag
@@ -9,6 +6,7 @@ interface RetryRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
 
+// A central API client , and all the FE api call will use this api instance
 export const api = axios.create({
   baseURL: API_CONFIG.BASE_URL,
   withCredentials: API_CONFIG.WITH_CREDENTIALS,
@@ -16,17 +14,17 @@ export const api = axios.create({
   headers: API_CONFIG.HEADERS,
 });
 
-// Auth endpoints that should not trigger token refresh
+// Defining only which endpoints will not use this to refresh token
 const SKIP_REFRESH_ENDPOINTS = [
   "/auth/login",
   "/auth/register",
   "/auth/refresh",
   "/auth/verify",
   "/auth/forgot-password",
-  "/auth/reset-password",
+  "/auth//reset-password",
 ] as const;
 
-// Public routes where redirect is not needed
+// These are the public routes
 const PUBLIC_ROUTES = [
   "/login",
   "/register",
@@ -35,16 +33,16 @@ const PUBLIC_ROUTES = [
   "/reset-password",
 ] as const;
 
-// Global refresh state
+// Tracking wether the refreshing is on going or not
 let isRefreshing = false;
 
-// Requests waiting for refresh to complete
+// Keep all the failed request in this queue (waiting room) during the Refreshing processing is ongoing
 let failedQueue: Array<{
   resolve: (value: unknown) => void;
   reject: (reason?: unknown) => void;
 }> = [];
 
-// Resolve or reject all queued requests
+// Resolve or reject all the requests in the waiting room (failedQueue)
 const processQueue = (error: Error | null): void => {
   failedQueue.forEach(({ resolve, reject }) => {
     if (error) {
@@ -53,11 +51,9 @@ const processQueue = (error: Error | null): void => {
       resolve(null);
     }
   });
-
-  failedQueue = [];
 };
 
-// Check if URL matches any endpoint in the list
+// Check if URL matches any endpoints in the list (to decided which url to skip for refreshing)
 const matchesAnyEndpoint = (
   url: string | undefined,
   endpoints: readonly string[],
@@ -65,11 +61,9 @@ const matchesAnyEndpoint = (
   if (!url) return false;
   return endpoints.some((endpoint) => url.includes(endpoint));
 };
-
-// Clear client-side auth data and notify the app
+// Clear client side auth data and notify the app like clear the LocalStorage and dispatch Logout event
 const clearClientAuthState = (): void => {
   if (typeof window === "undefined") return;
-
   localStorage.removeItem("user");
   window.dispatchEvent(new Event("auth:logout"));
 };
@@ -77,54 +71,50 @@ const clearClientAuthState = (): void => {
 // Redirect to login if current route is protected
 const redirectToLogin = (): void => {
   if (typeof window === "undefined") return;
-
   const currentPath = window.location.pathname;
   const isPublicRoute = PUBLIC_ROUTES.some((route) =>
     currentPath.includes(route),
   );
-
   if (!isPublicRoute) {
     window.location.href = "/login";
   }
 };
 
-// Request interceptor (currently passes config unchanged)
+// Request interceptor (here it intercept all outgoing requests)
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => config,
   (error: AxiosError) => {
     if (import.meta.env.DEV) {
-      console.error("Request Interceptor Error:", error);
+      console.error("Request Interceptor Error", error);
     }
-
     return Promise.reject(error);
   },
 );
 
-// Response interceptor handles automatic token refresh
+// Response interceptor that will handle all incoming response and will intercept errors
 api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
+    // Find out the original request ( store the fail request)
     const originalRequest = error.config as RetryRequestConfig | undefined;
 
-    // No original request config available
+    // if no original request find out
     if (!originalRequest) {
       return Promise.reject(error);
     }
 
-    // Only handle 401 Unauthorized
+    // only handle 401 unauthorized error
     if (error.response?.status !== 401) {
       return Promise.reject(error);
     }
 
-    // Prevent infinite retry loop
+    // Prevent infinity _retry loop
     if (originalRequest._retry) {
       return Promise.reject(error);
     }
 
-    // Skip refresh for auth-related endpoints
-    if (
-      matchesAnyEndpoint(originalRequest.url, SKIP_REFRESH_ENDPOINTS)
-    ) {
+    // skip refresh for auth related endpoints
+    if (matchesAnyEndpoint(originalRequest.url, SKIP_REFRESH_ENDPOINTS)) {
       return Promise.reject(error);
     }
 
@@ -142,25 +132,19 @@ api.interceptors.response.use(
     isRefreshing = true;
 
     try {
-      // Get a new access token using refresh token
+      // get a new access token using refresh token
       await api.post("/auth/refresh");
-
-      // Retry all queued requests
+      // retry all queue request ( resume all the request in the queue(the waiting room))
       processQueue(null);
-
       // Retry the original failed request
       return api(originalRequest);
     } catch (refreshError) {
-      // Reject all queued requests
       processQueue(refreshError as Error);
-
-      // Clear auth state and redirect to login
+      // clear auth state and redirect to login
       clearClientAuthState();
       redirectToLogin();
-
       return Promise.reject(refreshError);
     } finally {
-      // Reset refresh state
       isRefreshing = false;
     }
   },
