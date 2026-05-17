@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt, { type JwtPayload } from 'jsonwebtoken';
 import { config } from '../Config/config.ts';
 import { UnauthorizeError } from '../Utils/errors/httpErrors.ts';
 import { User } from '../Models/user.schema.ts';

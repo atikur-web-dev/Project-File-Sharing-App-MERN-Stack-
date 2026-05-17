@@ -59,7 +59,6 @@ const resolveQueue = (error: unknown = null) => {
     if (error) promise.reject(error);
     else promise.resolve();
   });
-
   failedQueue = [];
 };
 
