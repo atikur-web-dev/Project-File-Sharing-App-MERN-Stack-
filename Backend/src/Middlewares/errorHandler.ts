@@ -20,9 +20,7 @@ export const errorHandler: ErrorRequestHandler = (
   res: Response,
   _next: NextFunction
 ) => {
-  // ============================================
-  // আমাদের কাস্টম ApiError হলে
-  // ============================================
+ 
   if (err instanceof ApiError) {
     return res.status(err.statusCode).json({
       success: err.status,      // false
@@ -35,9 +33,7 @@ export const errorHandler: ErrorRequestHandler = (
     });
   }
 
-  // ============================================
-  // অন্য যেকোনো আনহ্যান্ডেল্ড এরর (সার্ভার এরর)
-  // ============================================
+ 
   const message = err instanceof Error ? err.message : "Internal Server Error";
   
   return res.status(500).json({
