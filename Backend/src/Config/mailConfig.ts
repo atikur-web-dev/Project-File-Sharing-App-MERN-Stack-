@@ -1,3 +1,4 @@
+// Backend/src/Config/mailConfig.ts
 import { Resend } from 'resend';
 import { config } from './config.ts';
 

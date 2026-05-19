@@ -1,3 +1,5 @@
+
+// Backend/src/Services/getFileInfo.service.ts
 import { File } from '../Models/file.schema.ts';
 import { NotFoundError } from '../Utils/errors/httpErrors.ts';
 import type { IFile } from '../Types/schema.d.ts';

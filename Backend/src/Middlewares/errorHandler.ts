@@ -1,3 +1,4 @@
+// Backend/src/Middlewares/errorHandler.ts
 import type { ErrorRequestHandler, NextFunction, Request, Response } from "express";
 import { ApiError } from "../Utils/apiError.ts";
 import { config } from "../Config/config.ts";
@@ -10,10 +11,6 @@ import { config } from "../Config/config.ts";
 // 5. Handle unknown/unexpected errors
 // 6. Send generic 500 Internal Server Error response
 
-/**
- * Express এরর হ্যান্ডলার মিডলওয়্যার
- * চারটি প্যারামিটার থাকলেই Express একে এরর হ্যান্ডলার হিসেবে চেনে
- */
 export const errorHandler: ErrorRequestHandler = (
   err: any,
   _req: Request,

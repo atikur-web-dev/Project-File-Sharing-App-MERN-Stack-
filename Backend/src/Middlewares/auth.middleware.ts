@@ -1,3 +1,4 @@
+// Backend/src/Middlewares/auth.middleware.ts
 import type { Request, Response, NextFunction } from 'express';
 import jwt, { type JwtPayload } from 'jsonwebtoken';
 import { config } from '../Config/config.ts';
@@ -132,7 +133,7 @@ export const requiredEmailVerification = (
   if (!req.user?.emailVerification) {
     throw new UnauthorizeError(
       {},
-      'Please Verify your email address to access this features',
+      'Please Verify your email address to access this feature',
     );
   }
   next();

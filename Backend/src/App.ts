@@ -1,5 +1,3 @@
-// src/app.ts
-
 import express, { type Request, type Response } from "express";
 import helmet from "helmet";
 import cors from "cors";
@@ -12,7 +10,7 @@ import fileRouter from "./Routes/file.route.ts";
 // Error Handler
 import { errorHandler } from "./Middlewares/errorHandler.ts";
 
-// Security Middlewares (নতুন ইম্পোর্ট)
+// Security Middlewares
 import { 
   generalLimiter, 
   authLimiter, 

@@ -16,6 +16,7 @@ const _config: Config = {
     process.env.REFRESH_TOKEN_SECRET_KEY ?? 'dev_refresh_secret',
   REFRESH_TOKEN_EXPIRE: process.env.REFRESH_TOKEN_EXPIRE ?? '30d',
   RESEND_API_KEY: process.env.RESEND_API_KEY || "",
+  EMAIL_VERIFICATION_SECRET: process.env.EMAIL_VERIFICATION_SECRET || process.env.ACCESS_TOKEN_SECRET_KEY,
 };
 
 export const config: Config = Object.freeze(_config);

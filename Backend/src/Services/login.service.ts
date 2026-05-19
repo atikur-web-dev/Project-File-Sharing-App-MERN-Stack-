@@ -20,7 +20,7 @@ interface LoginServiceResponse {
   refreshToken: string;
 }
 
-export async function LosingService (
+export async function LoginService (
     userData : unknown
 ): Promise<LoginServiceResponse> {
 

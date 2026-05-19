@@ -10,4 +10,5 @@ export type Config = {
   REFRESH_TOKEN_SECRET_KEY: Secret;
   REFRESH_TOKEN_EXPIRE: string;
   RESEND_API_KEY: string;
+  EMAIL_VERIFICATION_SECRET: Secret;
 };

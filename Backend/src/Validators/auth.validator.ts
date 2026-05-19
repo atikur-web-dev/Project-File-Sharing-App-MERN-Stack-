@@ -22,7 +22,8 @@ export const ZRegisterUser = z.object({
     .regex(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
       'Password must contain uppercase, lowercase, special characters',
-    ),
+    )
+    .max(100, 'Password is too long'),
 });
 
 export const ZLoginUser = z.object({

@@ -1,7 +1,8 @@
+// Backend/src/Controller/auth.controller.ts
 import type { CookieOptions, NextFunction, Request, Response } from 'express';
 import { registerService } from '../Services/register.service.ts';
 import { CreatedResponse, OkResponse } from '../Utils/success/httpSuccess.ts';
-import { LosingService } from '../Services/login.service.ts';
+import { LoginService } from '../Services/login.service.ts';
 import { config } from '../Config/config.ts';
 import { emailVerificationService } from '../Services/emailVerification.service.ts';
 import { ValidationError } from '../Utils/errors/httpErrors.ts';
@@ -33,7 +34,7 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
 // Login controller
 const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { user, accessToken, refreshToken } = await LosingService(req.body);
+    const { user, accessToken, refreshToken } = await LoginService(req.body);
     // cookie option setup
     const cookieOptions: CookieOptions = {
       httpOnly: true,
@@ -114,6 +115,14 @@ const refresh = async (req: Request, res: Response,  next: NextFunction) => {
   }
 };
 
+const getCurrentUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    res.status(200).json(new OkResponse({ user: req.user }, 'User fetched successfully'));
+  } catch (error) {
+    next(error);
+  }
+};
+
 const logout = async(req : Request, res : Response,  next : NextFunction) => {
   try {
     // set req.user in authenticate middleware
@@ -141,5 +150,6 @@ export const AuthController = {
   login,
   emailVerify,
   refresh,
+  getCurrentUser,
   logout,
 };

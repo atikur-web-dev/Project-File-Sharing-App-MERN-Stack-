@@ -1,3 +1,4 @@
+//Backend/src/Controller/file.controller.ts
 import type { Response, Request, NextFunction } from 'express';
 import { ValidationError } from '../Utils/errors/httpErrors.ts';
 import { config } from '../Config/config.ts';
@@ -38,9 +39,9 @@ export const fileUpload = async (
     let uploadResult: FileUploadResponse | FileUploadResponse[];
 
     if (files.length === 1) {
-      uploadResult = await singleFileUploadService(files[0]);
+      uploadResult = await singleFileUploadService(files[0], userID);
     } else {
-      uploadResult = await multipleFileUploadService(files);
+      uploadResult = await multipleFileUploadService(files, userID);
     }
 
     // Step 4: response formatter
