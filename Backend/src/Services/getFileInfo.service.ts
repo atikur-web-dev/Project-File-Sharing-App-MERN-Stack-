@@ -2,7 +2,6 @@
 import { File } from '../Models/file.schema.ts';
 import { NotFoundError } from '../Utils/errors/httpErrors.ts';
 import type { IFile } from '../Types/schema.d.ts';
-import type mongoose from 'mongoose';
 
 export interface FileInfoResponse {
   fileName: string;
@@ -16,11 +15,36 @@ export interface FileInfoResponse {
   viewUrl: string;
 }
 
+// Pagination Options (API input)
+export interface PaginationOptions {
+  page?: number;
+  limit?: number;
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
+  search?: string;
+  userId?: string;
+}
+
+// Pagination Response (API output)
+export interface PaginatedFilesResponse {
+  files: FileInfoResponse[];
+  pagination: {
+    currentPage: number;
+    totalPages: number;
+    totalFiles: number;
+    limit: number;
+    hasNextPage: boolean;
+    hasPrevPage: boolean;
+  };
+}
+
+
 export async function getFileInfoService(
   uuid: string,
 ): Promise<FileInfoResponse> {
   const file = await File.findOne({ uuid }).lean();
 
+  // file not found handling
   if (!file) {
     throw new NotFoundError(
       {},
@@ -28,25 +52,34 @@ export async function getFileInfoService(
     );
   }
 
-  const fileInfo: FileInfoResponse = {
+  // normalize response
+  return {
     fileName: file.fileName,
     originalName: file.originalName || file.fileName,
     size: file.size,
+
+    // convert bytes → MB (human readable)
     sizeInMB: (file.size / (1024 * 1024)).toFixed(2) + ' MB',
+
     mimetype: file.mimetype || 'application/octet-stream',
     uuid: file.uuid,
     uploadedAt: file.createdAt,
+
+    // frontend download endpoint
     downloadUrl: `/api/v1/files/download/${file.uuid}`,
+
+    // frontend preview endpoint
     viewUrl: `/api/v1/files/view/${file.uuid}`,
   };
-
-  return fileInfo;
 }
+
 
 export async function getMultipleFilesInfoService(
   uuids: string[],
 ): Promise<FileInfoResponse[]> {
-  const files = await File.find({ uuid: { $in: uuids } }).lean();
+  const files = await File.find({
+    uuid: { $in: uuids },
+  }).lean();
 
   return files.map((file) => ({
     fileName: file.fileName,
@@ -61,126 +94,65 @@ export async function getMultipleFilesInfoService(
   }));
 }
 
-// Function to see Pagination
-export interface PaginatedFileResponse {
-  files: FileInfoResponse[];
-  pagination: {
-    currentPage: number;
-    totalPages: number;
-    totalFiles: number;
-    limit: number;
-    hasNextPage: boolean;
-    hasPrevPage: boolean;
-  };
-}
 
-//Pagination Option type
-export interface PaginationOptions {
-  page?: number;
-  limit?: number;
-  sortBy?: string;
-  sortOrder?: 'asc' | 'desc'; // here asc means old one is beginning and desc means new one in in beginning
-  search?: string;
-  userID?: string;
-}
-
-// get Patination
-export async function getPaginatedFilesServices(
+export async function getPaginatedFilesService(
   options: PaginationOptions,
-): Promise<PaginatedFileResponse> {
-  // Default values
-  const page =
-    options.page && options.page > 0 ? options.page : 1;
+): Promise<PaginatedFilesResponse> {
+  // default page
+  const page = options.page && options.page > 0 ? options.page : 1;
 
+  // limit safety (max 100)
   const limit =
-    options.limit &&
-    options.limit > 0 &&
-    options.limit <= 100
+    options.limit && options.limit > 0 && options.limit <= 100
       ? options.limit
       : 10;
 
   const skip = (page - 1) * limit;
 
-  const allowedSortFields = [
-    'createdAt',
-    'fileName',
-    'originalName',
-    'size',
-    'mimetype',
-  ];
-
-  const sortField = allowedSortFields.includes(
-    options.sortBy || '',
-  )
-    ? (options.sortBy as string)
-    : 'createdAt';
-
+  // sorting setup
+  const sortField = options.sortBy || 'createdAt';
   const sortOrder = options.sortOrder === 'asc' ? 1 : -1;
 
   const sortOptions: Record<string, 1 | -1> = {
     [sortField]: sortOrder,
   };
 
-  // Create query
-  const query: mongoose.FilterQuery<IFile> = {};
+  
+  const query: Record<string, unknown> & {
+    $or?: Array<Record<string, RegExp>>;
+  } = {};
 
-  // Filter by user
-  if (options.userID) {
-    query.whoUploaded = options.userID;
+  // filter by user
+  if (options.userId) {
+    query.whoUploaded = options.userId;
   }
 
-  // Search by file name or original name
+  // search filter (fileName / originalName)
   if (options.search && options.search.trim() !== '') {
-    const searchRegex = new RegExp(
-      options.search.trim(),
-      'i',
-    );
+    const searchRegex = new RegExp(options.search.trim(), 'i');
 
-    query.$or = [
-      { fileName: searchRegex },
-      { originalName: searchRegex },
-    ];
+    query.$or = [{ fileName: searchRegex }, { originalName: searchRegex }];
   }
 
-  // Fetch total count and paginated files
+  // DB queries (count + data)
   const [totalFiles, files] = await Promise.all([
     File.countDocuments(query),
-    File.find(query)
-      .sort(sortOptions)
-      .skip(skip)
-      .limit(limit)
-      .lean(),
+    File.find(query).sort(sortOptions).skip(skip).limit(limit).lean(),
   ]);
 
-  // Pagination metadata
-  const totalPages = Math.max(
-    1,
-    Math.ceil(totalFiles / limit),
-  );
+  const totalPages = Math.max(1, Math.ceil(totalFiles / limit));
 
-  const hasNextPage = page < totalPages;
-  const hasPrevPage = page > 1;
-
-  // Format files
-  const formattedFiles: FileInfoResponse[] =
-    files.map((file) => ({
-      fileName: file.fileName,
-      originalName:
-        file.originalName || file.fileName,
-      size: file.size,
-      sizeInMB:
-        (file.size / (1024 * 1024)).toFixed(2) +
-        ' MB',
-      mimetype:
-        file.mimetype ||
-        'application/octet-stream',
-      uuid: file.uuid,
-      uploadedAt: file.createdAt,
-      downloadUrl:
-        `/api/v1/files/download/${file.uuid}`,
-      viewUrl:
-        `/api/v1/files/view/${file.uuid}`,
-    }));
+  const formattedFiles: FileInfoResponse[] = files.map((file) => ({
+    fileName: file.fileName,
+    originalName: file.originalName || file.fileName,
+    size: file.size,
+    sizeInMB: (file.size / (1024 * 1024)).toFixed(2) + ' MB',
+    mimetype: file.mimetype || 'application/octet-stream',
+    uuid: file.uuid,
+    uploadedAt: file.createdAt,
+    downloadUrl: `/api/v1/files/download/${file.uuid}`,
+    viewUrl: `/api/v1/files/view/${file.uuid}`,
+  }));
 
   return {
     files: formattedFiles,
@@ -189,8 +161,8 @@ export async function getPaginatedFilesServices(
       totalPages,
       totalFiles,
       limit,
-      hasNextPage,
-      hasPrevPage,
+      hasNextPage: page < totalPages,
+      hasPrevPage: page > 1,
     },
   };
 }
