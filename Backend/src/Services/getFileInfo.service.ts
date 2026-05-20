@@ -38,7 +38,6 @@ export interface PaginatedFilesResponse {
   };
 }
 
-
 export async function getFileInfoService(
   uuid: string,
 ): Promise<FileInfoResponse> {
@@ -73,7 +72,6 @@ export async function getFileInfoService(
   };
 }
 
-
 export async function getMultipleFilesInfoService(
   uuids: string[],
 ): Promise<FileInfoResponse[]> {
@@ -93,7 +91,6 @@ export async function getMultipleFilesInfoService(
     viewUrl: `/api/v1/files/view/${file.uuid}`,
   }));
 }
-
 
 export async function getPaginatedFilesService(
   options: PaginationOptions,
@@ -117,7 +114,6 @@ export async function getPaginatedFilesService(
     [sortField]: sortOrder,
   };
 
-  
   const query: Record<string, unknown> & {
     $or?: Array<Record<string, RegExp>>;
   } = {};
@@ -166,3 +162,4 @@ export async function getPaginatedFilesService(
     },
   };
 }
+
