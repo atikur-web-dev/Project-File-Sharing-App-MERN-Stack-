@@ -10,6 +10,8 @@ import {
 import {
   getFileInfoService,
   getMultipleFilesInfoService,
+  getPaginatedFilesService,
+  type PaginationOptions,
 } from '../Services/getFileInfo.service.ts';
 import { NotFoundError } from '../Utils/errors/httpErrors.ts';
 import { OkResponse } from '../Utils/success/httpSuccess.ts';
@@ -196,6 +198,17 @@ export const getMyFiles = async (
   try {
     // set authenticate middleware in req.user
     const userID = req.user!._id;
+    //pass query parameters
+    const options: PaginationOptions = {
+      page: req.query.page ? parseInt(req.query.page as string) : 1,
+      limit: req.query.limit ? parseInt(req.query.limit as string) : 10,
+      sortBy: (req.query.sortBy as string) || 'createdAt',
+      sortOrder: (req.query.sortOrder as 'asc' | 'desc') || 'desc',
+      search: req.query.search as string,
+      userId: userID,
+    };
+    // call the service
+    const result = await getPaginatedFilesService(options);
     // bring all the files from BD
     const files = await File.find({ whoUploaded: userID })
       .sort({ createdAt: -1 })
@@ -222,4 +235,27 @@ export const getMyFiles = async (
       ),
     );
   } catch (error) {}
+};
+
+// Get all files with pagination
+export const getAllFiles = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const options: PaginationOptions = {
+      page: req.query.page ? parseInt(req.query.page as string) : 1,
+      limit: req.query.limit ? parseInt(req.query.limit as string) : 10,
+      sortBy: (req.query.sortBy as string) || 'createdAt',
+      sortOrder: (req.query.sortOrder as 'asc' | 'desc') || 'desc',
+      search: req.query.search as string,
+    };
+    const result = await getPaginatedFilesService(options);
+    res
+      .status(200)
+      .json(new OkResponse(result, 'Files retrieved Successfully'));
+  } catch (error) {
+    next(error);
+  }
 };
