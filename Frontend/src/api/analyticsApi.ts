@@ -1,45 +1,64 @@
+// Frontend/src/api/analyticsApi.ts
 import { api } from "./axios";
 import type { FileType } from "../types";
 
-export interface FileWithDownloadCount extends FileType {
-  downloadCount?: number;
-}
-
+// ============================
+// Types
+// ============================
 export interface DownloadStats {
   totalDownloads: number;
-  filesByDownloads: {
+  topFiles: {
     fileName: string;
     downloadCount: number;
     uuid: string;
   }[];
 }
 
-// Extracted configuration for maintainability
-const MAX_FILES_TO_FETCH = 100;
-const TOP_DISPLAY_LIMIT = 10;
+export interface AnalyticsOverview {
+  totalFiles: number;
+  totalDownloads: number;
+  recentUploads: FileType[];
+}
 
+// ============================
+// Download Statistics
+// ============================
 export const getDownloadStatsApi = async (): Promise<DownloadStats> => {
-  const response = await api.get<{ data: { files: FileWithDownloadCount[] } }>(
-    `/files/my?limit=${MAX_FILES_TO_FETCH}`
+  const res = await api.get<{ data: DownloadStats }>("/analytics/downloads");
+  return res.data.data;
+};
+
+// ============================
+// Analytics Overview (Dashboard)
+// ============================
+export const getAnalyticsOverviewApi = async (): Promise<AnalyticsOverview> => {
+  const res = await api.get<{ data: AnalyticsOverview }>("/analytics/overview");
+  return res.data.data;
+};
+
+// ============================
+// Top Files
+// ============================
+export const getTopFilesApi = async (
+  limit: number = 10,
+): Promise<FileType[]> => {
+  const res = await api.get<{ data: FileType[] }>(
+    `/analytics/top-files?limit=${limit}`,
   );
 
-  // Optional chaining fallback guard against empty backend payloads
-  const files = response?.data?.data?.files || [];
+  return res.data.data;
+};
 
-  // Clean, modern functional programming approach
-  const totalDownloads = files.reduce((sum, file) => sum + (file.downloadCount ?? 0), 0);
+// ============================
+// User Activity Analytics
+// ============================
+export const getUserActivityApi = async (): Promise<{
+  uploads: number;
+  downloads: number;
+}> => {
+  const res = await api.get<{
+    data: { uploads: number; downloads: number };
+  }>("/analytics/activity");
 
-  const filesByDownloads = files
-    .map((file) => ({
-      fileName: file.originalName || "Untitled File", // Fallback for missing names
-      downloadCount: file.downloadCount ?? 0,         // Nullish coalescing protection
-      uuid: file.uuid,
-    }))
-    .sort((a, b) => b.downloadCount - a.downloadCount)
-    .slice(0, TOP_DISPLAY_LIMIT);
-
-  return {
-    totalDownloads,
-    filesByDownloads,
-  };
+  return res.data.data;
 };
