@@ -8,6 +8,7 @@ import {
   viewFile,
   getMyFiles,
   getAllFiles,
+  deleteFile,
 } from '../Controller/file.controller.ts';
 import {
   authenticate,
@@ -16,16 +17,23 @@ import {
 } from '../Middlewares/auth.middleware.ts';
 const router = Router();
 
-// Specific routes first (no parameters)
+// 1. Specific static routes 
 router.get('/files/my', authenticate, getMyFiles);
 router.get('/files', optionalAuthenticate, getAllFiles);
+
+// 2. Upload
 router.post('/files', authenticate, upload.array('sharedFile', 5), fileUpload);
 
-// Routes with parameters (specific action routes)
-router.get('/files/download/:uuid', downloadFile, optionalAuthenticate);
-router.get('/files/view/:uuid', viewFile, optionalAuthenticate);
+// 3. Action routes 
+router.get('/files/download/:uuid', optionalAuthenticate, downloadFile);
+router.get('/files/view/:uuid', optionalAuthenticate, viewFile);
 
-// Dynamic parameter route 
-router.get('/files/:uuid', getFileInfo, optionalAuthenticate);
+// 4. Delete route
+router.delete('/files/:uuid', authenticate, deleteFile);
+
+// 5. Dynamic route LAST (VERY IMPORTANT)
+router.get('/files/:uuid', optionalAuthenticate, getFileInfo);
+
+
 
 export default router;

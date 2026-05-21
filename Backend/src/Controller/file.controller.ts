@@ -18,6 +18,7 @@ import { OkResponse } from '../Utils/success/httpSuccess.ts';
 import fs from 'fs';
 import path from 'path';
 import { File } from '../Models/file.schema.ts';
+import { deleteFileService } from '../Services/deleteFile.service.ts';
 
 // FILE UPLOAD CONTROLLER
 export const fileUpload = async (
@@ -259,3 +260,22 @@ export const getAllFiles = async (
     next(error);
   }
 };
+
+// Delete file
+export const deleteFile = async (
+  req: Request,
+  res :Response,
+  next : NextFunction
+) => {
+  try {
+    const {uuid} = req.params;
+    const userId = req.user?._id; // from authenticate middleware
+    if(!uuid){
+      throw new ValidationError({}, "File UUID is required");
+    }
+    const result = await deleteFileService(uuid as string, userId);
+    res.status(200).json(new OkResponse(result, "File Delete Successfully"));
+  } catch (error) {
+    next (error)
+  }
+}
