@@ -53,3 +53,12 @@ export class InternalServerError extends ApiError {
     super(500, message, errors);
   }
 }
+
+export class ForbiddenError extends ApiError {
+  constructor(
+    errors: Record<string, string[]> = {},
+    message: string = 'Forbidden',
+  ) {
+    super(403, message, errors);
+  }
+}
