@@ -20,10 +20,9 @@ export const errorHandler: ErrorRequestHandler = (
  
   if (err instanceof ApiError) {
     return res.status(err.statusCode).json({
-      success: err.status,      // false
+      success: err.status,      
       message: err.message,
-      errors: err.errors,       // ফিল্ড-ভিত্তিক এরর
-      // ডেভেলপমেন্টে স্ট্যাক ট্রেস দেখাবো, প্রোডাকশনে না
+      errors: err.errors,       
       ...(config.nodeEnv === "development" && {
         stack: err.stack,
       }),
