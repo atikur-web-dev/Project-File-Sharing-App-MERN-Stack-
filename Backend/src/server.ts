@@ -1,5 +1,4 @@
 // src/server.ts
-
 import app from './App.ts';
 import { config } from './Config/config.ts';
 import { connectDB } from './DataBase/index.ts';
