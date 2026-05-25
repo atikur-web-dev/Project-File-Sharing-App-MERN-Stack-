@@ -84,7 +84,7 @@ export const getPublicFileInfoApi = async (
 // File URLs (no API call)
 // ============================
 export const getFileDownloadUrl = (uuid: string): string =>
-  `${import.meta.env.VITE_API_BASE_URL}/files/download/${uuid}`;
+  `${(import.meta as any).env.VITE_API_BASE_URL}/files/download/${uuid}`;
 
 export const getFileViewUrl = (uuid: string): string =>
-  `${import.meta.env.VITE_API_BASE_URL}/files/view/${uuid}`;
+  `${(import.meta as any).env.VITE_API_BASE_URL}/files/view/${uuid}`;
