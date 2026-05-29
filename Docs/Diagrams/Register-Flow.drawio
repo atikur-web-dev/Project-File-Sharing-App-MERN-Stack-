@@ -1,295 +1,412 @@
-<mxfile host="app.diagrams.net">
+<mxfile host="Electron" agent="VS Code" taget="draw.io">
   <diagram name="Registration Swimlane" id="register-swimlane">
-    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900">
+    <mxGraphModel dx="1200" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="1000" background="#ffffff">
       <root>
         <mxCell id="0"/>
         <mxCell id="1" parent="0"/>
         
         <!-- Swimlane 1: User -->
-        <mxCell id="lane-user" value="USER" style="swimlane;startSize=40;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;fontSize=14;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="40" y="40" width="180" height="820" as="geometry"/>
+        <mxCell id="lane-user" value="USER" style="swimlane;startSize=40;horizontal=0;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#0D47A1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="200" height="900" as="geometry"/>
         </mxCell>
         
         <!-- Swimlane 2: Frontend -->
-        <mxCell id="lane-frontend" value="FRONTEND" style="swimlane;startSize=40;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2;fontSize=14;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="220" y="40" width="320" height="820" as="geometry"/>
+        <mxCell id="lane-frontend" value="FRONTEND" style="swimlane;startSize=40;horizontal=0;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#1B5E20;" vertex="1" parent="1">
+          <mxGeometry x="240" y="40" width="260" height="900" as="geometry"/>
         </mxCell>
         
         <!-- Swimlane 3: Backend -->
-        <mxCell id="lane-backend" value="BACKEND" style="swimlane;startSize=40;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2;fontSize=14;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="540" y="40" width="380" height="820" as="geometry"/>
+        <mxCell id="lane-backend" value="BACKEND" style="swimlane;startSize=40;horizontal=0;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#BF360C;" vertex="1" parent="1">
+          <mxGeometry x="500" y="40" width="280" height="900" as="geometry"/>
         </mxCell>
         
         <!-- Swimlane 4: Database -->
-        <mxCell id="lane-database" value="DATABASE &amp; EMAIL" style="swimlane;startSize=40;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2;fontSize=14;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="920" y="40" width="220" height="820" as="geometry"/>
+        <mxCell id="lane-database" value="DATABASE &amp; EMAIL" style="swimlane;startSize=40;horizontal=0;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#4A148C;" vertex="1" parent="1">
+          <mxGeometry x="780" y="40" width="240" height="900" as="geometry"/>
         </mxCell>
         
         <!-- Swimlane 5: Context -->
-        <mxCell id="lane-context" value="CONTEXT" style="swimlane;startSize=40;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2;fontSize=14;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="1140" y="40" width="220" height="820" as="geometry"/>
+        <mxCell id="lane-context" value="CONTEXT" style="swimlane;startSize=40;horizontal=0;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2;fontSize=14;fontStyle=1;fontColor=#BF360C;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="40" width="240" height="900" as="geometry"/>
         </mxCell>
 
-        <!-- USER ACTIONS -->
-        <mxCell id="user-open" value="Open Register Page" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="60" y="120" width="140" height="40" as="geometry"/>
+        <!-- Step 1: User opens page -->
+        <mxCell id="step1" value="Open Register Page" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="65" y="120" width="150" height="45" as="geometry"/>
         </mxCell>
         
-        <mxCell id="user-fill" value="Fill Form Data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="60" y="220" width="140" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="user-click" value="Click Register" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="60" y="320" width="140" height="40" as="geometry"/>
-        </mxCell>
-
-        <!-- USER ARROWS -->
-        <mxCell id="user-arrow-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1565C0;" edge="1" parent="1" source="user-open" target="user-fill">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="user-arrow-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1565C0;" edge="1" parent="1" source="user-fill" target="user-click">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
-        <!-- FRONTEND ACTIONS -->
-        <mxCell id="fe-render" value="RegisterPage.tsx Renders" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="250" y="120" width="160" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="fe-form" value="RegisterForm.tsx Display" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="250" y="220" width="160" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="fe-validate" value="Client Side Validation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="250" y="340" width="160" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="fe-hook" value="Call useAuth().register()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="250" y="450" width="180" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="fe-api" value="Call registerApi()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="250" y="550" width="160" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="fe-axios" value="Axios POST Request" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="250" y="650" width="160" height="40" as="geometry"/>
-        </mxCell>
-
-        <!-- FRONTEND ARROWS -->
-        <mxCell id="fe-arrow-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2E7D32;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="fe-render" target="fe-form">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="fe-arrow-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2E7D32;" edge="1" parent="1" source="fe-form" target="fe-validate">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="fe-arrow-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2E7D32;" edge="1" parent="1" source="fe-validate" target="fe-hook">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="fe-arrow-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2E7D32;" edge="1" parent="1" source="fe-hook" target="fe-api">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="fe-arrow-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2E7D32;" edge="1" parent="1" source="fe-api" target="fe-axios">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
-        <!-- BACKEND ACTIONS -->
-        <mxCell id="be-server" value="server.ts Receives Request" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="570" y="120" width="180" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="be-middleware" value="Global Middlewares Execute" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="570" y="230" width="180" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="be-route" value="Route to auth.controller.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="570" y="340" width="190" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="be-controller" value="register() Controller Called" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="570" y="450" width="180" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="be-service" value="Call registerService()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="570" y="560" width="180" height="40" as="geometry"/>
-        </mxCell>
-
-        <!-- BACKEND ARROWS -->
-        <mxCell id="be-arrow-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;" edge="1" parent="1" source="be-server" target="be-middleware">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="be-arrow-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;" edge="1" parent="1" source="be-middleware" target="be-route">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="be-arrow-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;" edge="1" parent="1" source="be-route" target="be-controller">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="be-arrow-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;" edge="1" parent="1" source="be-controller" target="be-service">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
-        <!-- DATABASE ACTIONS -->
-        <mxCell id="db-validate" value="Zod Validation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="940" y="120" width="150" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="db-check" value="Check Existing User" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="940" y="230" width="150" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="db-create" value="User.create()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="940" y="340" width="150" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="db-hash" value="bcrypt.hash() Password" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="940" y="450" width="150" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="db-save" value="Save to MongoDB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="940" y="560" width="150" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="db-email" value="Send Email via Resend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="940" y="650" width="150" height="40" as="geometry"/>
-        </mxCell>
-
-        <!-- DATABASE ARROWS -->
-        <mxCell id="db-arrow-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6A1B9A;" edge="1" parent="1" source="db-validate" target="db-check">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="db-arrow-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6A1B9A;" edge="1" parent="1" source="db-check" target="db-create">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="db-arrow-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6A1B9A;" edge="1" parent="1" source="db-create" target="db-hash">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="db-arrow-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6A1B9A;" edge="1" parent="1" source="db-hash" target="db-save">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="db-arrow-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6A1B9A;" edge="1" parent="1" source="db-save" target="db-email">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
-        <!-- CONTEXT ACTIONS -->
-        <mxCell id="ctx-response" value="Return User Data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="1170" y="120" width="160" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="ctx-set" value="AuthContext.setUser()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="1170" y="230" width="160" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="ctx-store" value="Store in LocalStorage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="1170" y="340" width="160" height="40" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="ctx-redirect" value="Redirect to /login" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="1170" y="450" width="160" height="40" as="geometry"/>
-        </mxCell>
-
-        <!-- CONTEXT ARROWS -->
-        <mxCell id="ctx-arrow-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;" edge="1" parent="1" source="ctx-response" target="ctx-set">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="ctx-arrow-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;" edge="1" parent="1" source="ctx-set" target="ctx-store">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="ctx-arrow-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;" edge="1" parent="1" source="ctx-store" target="ctx-redirect">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
-        <!-- CROSS LANE ARROWS -->
-        <!-- User to Frontend -->
-        <mxCell id="cross-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1565C0;dashed=1;" edge="1" parent="1" source="user-open" target="fe-render">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="cross-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1565C0;dashed=1;" edge="1" parent="1" source="user-fill" target="fe-form">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        
-        <mxCell id="cross-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1565C0;dashed=1;" edge="1" parent="1" source="user-click" target="fe-validate">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
-        <!-- Frontend to Backend -->
-        <mxCell id="cross-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#D32F2F;dashed=1;" edge="1" parent="1" source="fe-axios" target="be-server">
+        <!-- Arrow 1 to Frontend -->
+        <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#1565C0;endArrow=classic;endFill=1;" edge="1" parent="1" source="step1" target="step2">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="410" y="670"/>
-              <mxPoint x="500" y="670"/>
-              <mxPoint x="500" y="140"/>
-              <mxPoint x="570" y="140"/>
+              <mxPoint x="140" y="180"/>
+              <mxPoint x="370" y="180"/>
             </Array>
           </mxGeometry>
         </mxCell>
-
-        <!-- Backend to Database -->
-        <mxCell id="cross-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;dashed=1;" edge="1" parent="1" source="be-service" target="db-validate">
+        
+        <!-- Step 2: Frontend renders -->
+        <mxCell id="step2" value="RegisterPage.tsx Renders" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="275" y="120" width="190" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Step 3: Form display -->
+        <mxCell id="step3" value="RegisterForm.tsx Displays" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="275" y="210" width="190" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 2 -->
+        <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#2E7D32;endArrow=classic;endFill=1;" edge="1" parent="1" source="step2" target="step3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="165" as="sourcePoint"/>
+            <mxPoint x="370" y="210" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 4: User fills form -->
+        <mxCell id="step4" value="Fill Form Data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="65" y="300" width="150" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 4 to Frontend -->
+        <mxCell id="arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#1565C0;endArrow=classic;endFill=1;" edge="1" parent="1" source="step4" target="step5">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="750" y="580"/>
-              <mxPoint x="880" y="580"/>
-              <mxPoint x="880" y="140"/>
-              <mxPoint x="940" y="140"/>
+              <mxPoint x="140" y="360"/>
+              <mxPoint x="370" y="360"/>
             </Array>
           </mxGeometry>
         </mxCell>
-
-        <!-- Database to Backend Response -->
-        <mxCell id="cross-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6A1B9A;dashed=1;" edge="1" parent="1" source="db-email" target="ctx-response">
+        
+        <!-- Step 5: Form state update -->
+        <mxCell id="step5" value="Form State Updates" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="275" y="300" width="190" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 5 -->
+        <mxCell id="arrow5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#2E7D32;endArrow=classic;endFill=1;" edge="1" parent="1" source="step5" target="step6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="345" as="sourcePoint"/>
+            <mxPoint x="370" y="390" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 6: User clicks submit -->
+        <mxCell id="step6" value="Click Register Button" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="65" y="480" width="150" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 6 to Frontend -->
+        <mxCell id="arrow6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#1565C0;endArrow=classic;endFill=1;" edge="1" parent="1" source="step6" target="step7">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1015" y="690"/>
-              <mxPoint x="1090" y="690"/>
-              <mxPoint x="1090" y="140"/>
-              <mxPoint x="1170" y="140"/>
+              <mxPoint x="140" y="540"/>
+              <mxPoint x="370" y="540"/>
             </Array>
           </mxGeometry>
         </mxCell>
-
-        <!-- Context to Frontend Redirect -->
-        <mxCell id="cross-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;dashed=1;" edge="1" parent="1" source="ctx-redirect" target="fe-render">
+        
+        <!-- Step 7: Client validation -->
+        <mxCell id="step7" value="Client Side Validation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="275" y="480" width="190" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 7 -->
+        <mxCell id="arrow7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#2E7D32;endArrow=classic;endFill=1;" edge="1" parent="1" source="step7" target="step8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="525" as="sourcePoint"/>
+            <mxPoint x="370" y="570" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 8: Call useAuth -->
+        <mxCell id="step8" value="Call useAuth.register()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="275" y="570" width="190" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 8 -->
+        <mxCell id="arrow8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#2E7D32;endArrow=classic;endFill=1;" edge="1" parent="1" source="step8" target="step9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="615" as="sourcePoint"/>
+            <mxPoint x="370" y="660" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 9: API call -->
+        <mxCell id="step9" value="Call registerApi()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="275" y="660" width="190" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 9 to Backend -->
+        <mxCell id="arrow9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#D32F2F;endArrow=classic;endFill=1;dashed=1;" edge="1" parent="1" source="step9" target="step10">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1250" y="490"/>
-              <mxPoint x="1300" y="490"/>
-              <mxPoint x="1300" y="780"/>
-              <mxPoint x="330" y="780"/>
-              <mxPoint x="330" y="160"/>
+              <mxPoint x="480" y="682"/>
+              <mxPoint x="640" y="682"/>
             </Array>
           </mxGeometry>
         </mxCell>
-
-        <!-- Cross Labels -->
-        <mxCell id="label-http" value="HTTP" style="text;html=1;strokeColor=none;fillColor=#FFCDD2;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=12;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="470" y="655" width="50" height="25" as="geometry"/>
+        
+        <!-- Step 10: Server receives -->
+        <mxCell id="step10" value="server.ts Receives Request" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="120" width="240" height="45" as="geometry"/>
         </mxCell>
         
-        <mxCell id="label-service" value="SERVICE" style="text;html=1;strokeColor=none;fillColor=#FFCC80;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=12;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="850" y="560" width="60" height="25" as="geometry"/>
+        <!-- Arrow 10 -->
+        <mxCell id="arrow10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#E65100;endArrow=classic;endFill=1;" edge="1" parent="1" source="step10" target="step11">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="640" y="165" as="sourcePoint"/>
+            <mxPoint x="640" y="210" as="targetPoint"/>
+          </mxGeometry>
         </mxCell>
         
-        <mxCell id="label-response" value="RESPONSE" style="text;html=1;strokeColor=none;fillColor=#CE93D8;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=12;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="1080" y="675" width="70" height="25" as="geometry"/>
+        <!-- Step 11: Middleware -->
+        <mxCell id="step11" value="Global Middlewares Execute" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="210" width="240" height="45" as="geometry"/>
         </mxCell>
         
-        <mxCell id="label-redirect" value="REDIRECT" style="text;html=1;strokeColor=none;fillColor=#FFCC80;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=12;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="1240" y="760" width="60" height="25" as="geometry"/>
+        <!-- Arrow 11 -->
+        <mxCell id="arrow11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#E65100;endArrow=classic;endFill=1;" edge="1" parent="1" source="step11" target="step12">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="640" y="255" as="sourcePoint"/>
+            <mxPoint x="640" y="300" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 12: Route to controller -->
+        <mxCell id="step12" value="Route to auth.controller.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="300" width="240" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 12 -->
+        <mxCell id="arrow12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#E65100;endArrow=classic;endFill=1;" edge="1" parent="1" source="step12" target="step13">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="640" y="345" as="sourcePoint"/>
+            <mxPoint x="640" y="390" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 13: Controller called -->
+        <mxCell id="step13" value="register() Controller Called" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="390" width="240" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 13 -->
+        <mxCell id="arrow13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#E65100;endArrow=classic;endFill=1;" edge="1" parent="1" source="step13" target="step14">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="640" y="435" as="sourcePoint"/>
+            <mxPoint x="640" y="480" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 14: Service call -->
+        <mxCell id="step14" value="Call registerService()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="480" width="240" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 14 to Database -->
+        <mxCell id="arrow14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#E65100;endArrow=classic;endFill=1;dashed=1;" edge="1" parent="1" source="step14" target="step15">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="780" y="502"/>
+              <mxPoint x="900" y="502"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 15: Zod validation -->
+        <mxCell id="step15" value="Zod Validation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="800" y="120" width="200" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 15 -->
+        <mxCell id="arrow15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#6A1B9A;endArrow=classic;endFill=1;" edge="1" parent="1" source="step15" target="step16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="165" as="sourcePoint"/>
+            <mxPoint x="900" y="210" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 16: Check existing -->
+        <mxCell id="step16" value="Check Existing User" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="800" y="210" width="200" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 16 -->
+        <mxCell id="arrow16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#6A1B9A;endArrow=classic;endFill=1;" edge="1" parent="1" source="step16" target="step17">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="255" as="sourcePoint"/>
+            <mxPoint x="900" y="300" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 17: Create user -->
+        <mxCell id="step17" value="User.create()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="800" y="300" width="200" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 17 -->
+        <mxCell id="arrow17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#6A1B9A;endArrow=classic;endFill=1;" edge="1" parent="1" source="step17" target="step18">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="345" as="sourcePoint"/>
+            <mxPoint x="900" y="390" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 18: Hash password -->
+        <mxCell id="step18" value="bcrypt.hash() Password" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="800" y="390" width="200" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 18 -->
+        <mxCell id="arrow18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#6A1B9A;endArrow=classic;endFill=1;" edge="1" parent="1" source="step18" target="step19">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="435" as="sourcePoint"/>
+            <mxPoint x="900" y="480" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 19: Save to MongoDB -->
+        <mxCell id="step19" value="Save to MongoDB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="800" y="480" width="200" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 19 -->
+        <mxCell id="arrow19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#6A1B9A;endArrow=classic;endFill=1;" edge="1" parent="1" source="step19" target="step20">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="525" as="sourcePoint"/>
+            <mxPoint x="900" y="570" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 20: Send email -->
+        <mxCell id="step20" value="Send Email via Resend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="800" y="570" width="200" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 20 back to Backend -->
+        <mxCell id="arrow20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#6A1B9A;endArrow=classic;endFill=1;dashed=1;" edge="1" parent="1" source="step20" target="step21">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="800" y="592"/>
+              <mxPoint x="640" y="592"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 21: Return response -->
+        <mxCell id="step21" value="Return User Response" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="570" width="240" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 21 -->
+        <mxCell id="arrow21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#E65100;endArrow=classic;endFill=1;" edge="1" parent="1" source="step21" target="step22">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="640" y="615" as="sourcePoint"/>
+            <mxPoint x="640" y="660" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 22: HTTP response -->
+        <mxCell id="step22" value="HTTP 201 Response" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="520" y="660" width="240" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 22 to Frontend -->
+        <mxCell id="arrow22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#2E7D32;endArrow=classic;endFill=1;dashed=1;" edge="1" parent="1" source="step22" target="step23">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="520" y="682"/>
+              <mxPoint x="370" y="682"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 23: Frontend receives -->
+        <mxCell id="step23" value="Receive Response" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="275" y="750" width="190" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 23 -->
+        <mxCell id="arrow23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#2E7D32;endArrow=classic;endFill=1;" edge="1" parent="1" source="step23" target="step24">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="795" as="sourcePoint"/>
+            <mxPoint x="370" y="810" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 24: Update Context -->
+        <mxCell id="step24" value="Update AuthContext" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="275" y="810" width="190" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 24 to Context -->
+        <mxCell id="arrow24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#E65100;endArrow=classic;endFill=1;dashed=1;" edge="1" parent="1" source="step24" target="step25">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="480" y="832"/>
+              <mxPoint x="1100" y="832"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 25: Context store -->
+        <mxCell id="step25" value="Store User in Context" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="120" width="200" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 25 -->
+        <mxCell id="arrow25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#E65100;endArrow=classic;endFill=1;" edge="1" parent="1" source="step25" target="step26">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1140" y="165" as="sourcePoint"/>
+            <mxPoint x="1140" y="210" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 26: Save to storage -->
+        <mxCell id="step26" value="Save to LocalStorage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="210" width="200" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 26 -->
+        <mxCell id="arrow26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#E65100;endArrow=classic;endFill=1;" edge="1" parent="1" source="step26" target="step27">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1140" y="255" as="sourcePoint"/>
+            <mxPoint x="1140" y="300" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 27: Redirect -->
+        <mxCell id="step27" value="Redirect to /login" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="300" width="200" height="45" as="geometry"/>
+        </mxCell>
+        
+        <!-- Arrow 27 to User -->
+        <mxCell id="arrow27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#1565C0;endArrow=classic;endFill=1;dashed=1;" edge="1" parent="1" source="step27" target="step28">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1140" y="345"/>
+              <mxPoint x="1140" y="400"/>
+              <mxPoint x="140" y="400"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 28: User sees success -->
+        <mxCell id="step28" value="Sees Success Message" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="65" y="750" width="150" height="45" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="arrow28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#1565C0;endArrow=classic;endFill=1;" edge="1" parent="1" source="step28" target="step29">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="140" y="795" as="sourcePoint"/>
+            <mxPoint x="140" y="810" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Step 29: Email check -->
+        <mxCell id="step29" value="Checks Email Inbox" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="65" y="810" width="150" height="45" as="geometry"/>
         </mxCell>
 
       </root>
