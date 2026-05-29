@@ -1,284 +1,295 @@
 <mxfile host="app.diagrams.net">
-  <diagram name="Registration Flow" id="register-flow">
-    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900">
+  <diagram name="Registration Swimlane" id="register-swimlane">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900">
       <root>
         <mxCell id="0"/>
         <mxCell id="1" parent="0"/>
         
+        <!-- Swimlane 1: User -->
+        <mxCell id="lane-user" value="USER" style="swimlane;startSize=40;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="180" height="820" as="geometry"/>
+        </mxCell>
         
-        <mxCell id="title" value="REGISTRATION FLOW - COMPLETE ARCHITECTURE" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="350" y="20" width="500" height="40" as="geometry"/>
+        <!-- Swimlane 2: Frontend -->
+        <mxCell id="lane-frontend" value="FRONTEND" style="swimlane;startSize=40;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="220" y="40" width="320" height="820" as="geometry"/>
         </mxCell>
-
         
-        <mxCell id="frontend-box" value="FRONTEND LAYER" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;fontSize=14;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="40" y="80" width="520" height="280" as="geometry"/>
+        <!-- Swimlane 3: Backend -->
+        <mxCell id="lane-backend" value="BACKEND" style="swimlane;startSize=40;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="540" y="40" width="380" height="820" as="geometry"/>
+        </mxCell>
+        
+        <!-- Swimlane 4: Database -->
+        <mxCell id="lane-database" value="DATABASE &amp; EMAIL" style="swimlane;startSize=40;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="920" y="40" width="220" height="820" as="geometry"/>
+        </mxCell>
+        
+        <!-- Swimlane 5: Context -->
+        <mxCell id="lane-context" value="CONTEXT" style="swimlane;startSize=40;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1140" y="40" width="220" height="820" as="geometry"/>
         </mxCell>
 
-       
-        <mxCell id="user" value="User" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="70" y="130" width="100" height="40" as="geometry"/>
+        <!-- USER ACTIONS -->
+        <mxCell id="user-open" value="Open Register Page" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="60" y="120" width="140" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="user-fill" value="Fill Form Data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="60" y="220" width="140" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="user-click" value="Click Register" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="60" y="320" width="140" height="40" as="geometry"/>
         </mxCell>
 
-       
-        <mxCell id="register-page" value="RegisterPage.tsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="230" y="130" width="120" height="40" as="geometry"/>
-        </mxCell>
-
-      
-        <mxCell id="register-form" value="RegisterForm.tsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="410" y="130" width="120" height="40" as="geometry"/>
-        </mxCell>
-
-       
-        <mxCell id="use-auth" value="useAuth.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="150" y="220" width="120" height="40" as="geometry"/>
-        </mxCell>
-
-       
-        <mxCell id="auth-api" value="authApi.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="330" y="220" width="120" height="40" as="geometry"/>
-        </mxCell>
-
-       
-        <mxCell id="axios" value="axios.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="510" y="220" width="100" height="40" as="geometry"/>
-        </mxCell>
-
-       
-        <mxCell id="arrow-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;" edge="1" parent="1" source="user" target="register-page">
+        <!-- USER ARROWS -->
+        <mxCell id="user-arrow-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1565C0;" edge="1" parent="1" source="user-open" target="user-fill">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="arrow-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2E7D32;" edge="1" parent="1" source="register-page" target="register-form">
+        
+        <mxCell id="user-arrow-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1565C0;" edge="1" parent="1" source="user-fill" target="user-click">
           <mxGeometry relative="1" as="geometry"/>
         </mxCell>
-        <mxCell id="arrow-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2E7D32;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="register-form" target="use-auth">
+
+        <!-- FRONTEND ACTIONS -->
+        <mxCell id="fe-render" value="RegisterPage.tsx Renders" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="250" y="120" width="160" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="fe-form" value="RegisterForm.tsx Display" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="250" y="220" width="160" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="fe-validate" value="Client Side Validation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="250" y="340" width="160" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="fe-hook" value="Call useAuth().register()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="250" y="450" width="180" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="fe-api" value="Call registerApi()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="250" y="550" width="160" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="fe-axios" value="Axios POST Request" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="250" y="650" width="160" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- FRONTEND ARROWS -->
+        <mxCell id="fe-arrow-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2E7D32;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="fe-render" target="fe-form">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="fe-arrow-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2E7D32;" edge="1" parent="1" source="fe-form" target="fe-validate">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="fe-arrow-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2E7D32;" edge="1" parent="1" source="fe-validate" target="fe-hook">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="fe-arrow-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2E7D32;" edge="1" parent="1" source="fe-hook" target="fe-api">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="fe-arrow-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2E7D32;" edge="1" parent="1" source="fe-api" target="fe-axios">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- BACKEND ACTIONS -->
+        <mxCell id="be-server" value="server.ts Receives Request" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="570" y="120" width="180" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="be-middleware" value="Global Middlewares Execute" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="570" y="230" width="180" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="be-route" value="Route to auth.controller.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="570" y="340" width="190" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="be-controller" value="register() Controller Called" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="570" y="450" width="180" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="be-service" value="Call registerService()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="570" y="560" width="180" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- BACKEND ARROWS -->
+        <mxCell id="be-arrow-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;" edge="1" parent="1" source="be-server" target="be-middleware">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="be-arrow-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;" edge="1" parent="1" source="be-middleware" target="be-route">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="be-arrow-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;" edge="1" parent="1" source="be-route" target="be-controller">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="be-arrow-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;" edge="1" parent="1" source="be-controller" target="be-service">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- DATABASE ACTIONS -->
+        <mxCell id="db-validate" value="Zod Validation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="940" y="120" width="150" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="db-check" value="Check Existing User" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="940" y="230" width="150" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="db-create" value="User.create()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="940" y="340" width="150" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="db-hash" value="bcrypt.hash() Password" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="940" y="450" width="150" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="db-save" value="Save to MongoDB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="940" y="560" width="150" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="db-email" value="Send Email via Resend" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="940" y="650" width="150" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- DATABASE ARROWS -->
+        <mxCell id="db-arrow-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6A1B9A;" edge="1" parent="1" source="db-validate" target="db-check">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="db-arrow-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6A1B9A;" edge="1" parent="1" source="db-check" target="db-create">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="db-arrow-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6A1B9A;" edge="1" parent="1" source="db-create" target="db-hash">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="db-arrow-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6A1B9A;" edge="1" parent="1" source="db-hash" target="db-save">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="db-arrow-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6A1B9A;" edge="1" parent="1" source="db-save" target="db-email">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- CONTEXT ACTIONS -->
+        <mxCell id="ctx-response" value="Return User Data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="1170" y="120" width="160" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="ctx-set" value="AuthContext.setUser()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="1170" y="230" width="160" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="ctx-store" value="Store in LocalStorage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="1170" y="340" width="160" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="ctx-redirect" value="Redirect to /login" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
+          <mxGeometry x="1170" y="450" width="160" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- CONTEXT ARROWS -->
+        <mxCell id="ctx-arrow-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;" edge="1" parent="1" source="ctx-response" target="ctx-set">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="ctx-arrow-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;" edge="1" parent="1" source="ctx-set" target="ctx-store">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="ctx-arrow-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;" edge="1" parent="1" source="ctx-store" target="ctx-redirect">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- CROSS LANE ARROWS -->
+        <!-- User to Frontend -->
+        <mxCell id="cross-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1565C0;dashed=1;" edge="1" parent="1" source="user-open" target="fe-render">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="cross-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1565C0;dashed=1;" edge="1" parent="1" source="user-fill" target="fe-form">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="cross-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#1565C0;dashed=1;" edge="1" parent="1" source="user-click" target="fe-validate">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Frontend to Backend -->
+        <mxCell id="cross-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#D32F2F;dashed=1;" edge="1" parent="1" source="fe-axios" target="be-server">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="470" y="180"/>
-              <mxPoint x="470" y="200"/>
-              <mxPoint x="270" y="200"/>
-              <mxPoint x="270" y="220"/>
+              <mxPoint x="410" y="670"/>
+              <mxPoint x="500" y="670"/>
+              <mxPoint x="500" y="140"/>
+              <mxPoint x="570" y="140"/>
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="arrow-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2E7D32;" edge="1" parent="1" source="use-auth" target="auth-api">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="arrow-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2E7D32;" edge="1" parent="1" source="auth-api" target="axios">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
 
-       
-        <mxCell id="label-1" value="1. Click Register" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11" vertex="1" parent="1">
-          <mxGeometry x="160" y="100" width="100" height="20" as="geometry"/>
-        </mxCell>
-        <mxCell id="label-2" value="2. Submit Form" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11" vertex="1" parent="1">
-          <mxGeometry x="310" y="100" width="100" height="20" as="geometry"/>
-        </mxCell>
-        <mxCell id="label-3" value="3. Call register()" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11" vertex="1" parent="1">
-          <mxGeometry x="350" y="195" width="100" height="20" as="geometry"/>
-        </mxCell>
-        <mxCell id="label-4" value="4. POST /auth/register" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11" vertex="1" parent="1">
-          <mxGeometry x="490" y="195" width="130" height="20" as="geometry"/>
-        </mxCell>
-
-       
-        <mxCell id="http-arrow" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#D32F2F;dashed=1;" edge="1" parent="1" source="axios" target="server">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="660" y="240" as="targetPoint"/>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="http-label" value="HTTP REQUEST" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="660" y="210" width="120" height="20" as="geometry"/>
-        </mxCell>
-
-        
-        <mxCell id="backend-box" value="BACKEND LAYER" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2;fontSize=14;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="820" y="80" width="340" height="280" as="geometry"/>
-        </mxCell>
-
-        
-        <mxCell id="server" value="server.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="840" y="130" width="100" height="40" as="geometry"/>
-        </mxCell>
-
-        
-        <mxCell id="auth-controller" value="auth.controller.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="1000" y="130" width="120" height="40" as="geometry"/>
-        </mxCell>
-
-        
-        <mxCell id="register-service" value="register.service.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="840" y="220" width="120" height="40" as="geometry"/>
-        </mxCell>
-
-      
-        <mxCell id="user-model" value="user.schema.ts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="1020" y="220" width="120" height="40" as="geometry"/>
-        </mxCell>
-
-        
-        <mxCell id="arrow-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;" edge="1" parent="1" source="server" target="auth-controller">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="arrow-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="auth-controller" target="register-service">
+        <!-- Backend to Database -->
+        <mxCell id="cross-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;dashed=1;" edge="1" parent="1" source="be-service" target="db-validate">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1060" y="180"/>
-              <mxPoint x="1060" y="200"/>
-              <mxPoint x="900" y="200"/>
-              <mxPoint x="900" y="220"/>
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="arrow-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;" edge="1" parent="1" source="register-service" target="user-model">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="label-5" value="5. Route to Controller" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11" vertex="1" parent="1">
-          <mxGeometry x="920" y="100" width="120" height="20" as="geometry"/>
-        </mxCell>
-        <mxCell id="label-6" value="6. Call Service" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11" vertex="1" parent="1">
-          <mxGeometry x="960" y="195" width="100" height="20" as="geometry"/>
-        </mxCell>
-        <mxCell id="label-7" value="7. Create User" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11" vertex="1" parent="1">
-          <mxGeometry x="920" y="270" width="100" height="20" as="geometry"/>
-        </mxCell>
-
-        
-        <mxCell id="db-box" value="DATABASE &amp; EMAIL" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#6A1B9A;strokeWidth=2;fontSize=14;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="1220" y="80" width="200" height="280" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="mongodb" value="MongoDB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1BEE7;strokeColor=#6A1B9A;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="1250" y="130" width="120" height="40" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="resend" value="Resend Email" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1BEE7;strokeColor=#6A1B9A;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="1250" y="220" width="120" height="40" as="geometry"/>
-        </mxCell>
-
-       
-        <mxCell id="arrow-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6A1B9A;" edge="1" parent="1" source="user-model" target="mongodb">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1080" y="260"/>
-              <mxPoint x="1140" y="260"/>
-              <mxPoint x="1140" y="150"/>
-              <mxPoint x="1250" y="150"/>
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="arrow-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6A1B9A;" edge="1" parent="1" source="register-service" target="resend">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="960" y="260"/>
-              <mxPoint x="1140" y="260"/>
-              <mxPoint x="1140" y="240"/>
-              <mxPoint x="1250" y="240"/>
+              <mxPoint x="750" y="580"/>
+              <mxPoint x="880" y="580"/>
+              <mxPoint x="880" y="140"/>
+              <mxPoint x="940" y="140"/>
             </Array>
           </mxGeometry>
         </mxCell>
 
-        <mxCell id="label-8" value="Save User Data" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11" vertex="1" parent="1">
-          <mxGeometry x="1130" y="140" width="100" height="20" as="geometry"/>
-        </mxCell>
-        <mxCell id="label-9" value="Send Verification Email" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11" vertex="1" parent="1">
-          <mxGeometry x="1110" y="230" width="130" height="20" as="geometry"/>
-        </mxCell>
-
-       
-        <mxCell id="response-arrow" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=3;strokeColor=#2E7D32;dashed=1;" edge="1" parent="1" source="auth-controller" target="auth-api">
+        <!-- Database to Backend Response -->
+        <mxCell id="cross-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6A1B9A;dashed=1;" edge="1" parent="1" source="db-email" target="ctx-response">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1060" y="350"/>
-              <mxPoint x="390" y="350"/>
-              <mxPoint x="390" y="260"/>
+              <mxPoint x="1015" y="690"/>
+              <mxPoint x="1090" y="690"/>
+              <mxPoint x="1090" y="140"/>
+              <mxPoint x="1170" y="140"/>
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="response-label" value="HTTP RESPONSE 201 CREATED" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="650" y="340" width="180" height="20" as="geometry"/>
+
+        <!-- Context to Frontend Redirect -->
+        <mxCell id="cross-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;dashed=1;" edge="1" parent="1" source="ctx-redirect" target="fe-render">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1250" y="490"/>
+              <mxPoint x="1300" y="490"/>
+              <mxPoint x="1300" y="780"/>
+              <mxPoint x="330" y="780"/>
+              <mxPoint x="330" y="160"/>
+            </Array>
+          </mxGeometry>
         </mxCell>
 
+        <!-- Cross Labels -->
+        <mxCell id="label-http" value="HTTP" style="text;html=1;strokeColor=none;fillColor=#FFCDD2;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="470" y="655" width="50" height="25" as="geometry"/>
+        </mxCell>
         
-        <mxCell id="context-box" value="CONTEXT LAYER" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#2E7D32;strokeWidth=2;fontSize=14;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="40" y="440" width="520" height="180" as="geometry"/>
+        <mxCell id="label-service" value="SERVICE" style="text;html=1;strokeColor=none;fillColor=#FFCC80;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="850" y="560" width="60" height="25" as="geometry"/>
         </mxCell>
-
-        <mxCell id="auth-context" value="AuthContext.tsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="70" y="490" width="130" height="40" as="geometry"/>
+        
+        <mxCell id="label-response" value="RESPONSE" style="text;html=1;strokeColor=none;fillColor=#CE93D8;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1080" y="675" width="70" height="25" as="geometry"/>
         </mxCell>
-
-        <mxCell id="auth-provider" value="AuthProvider.tsx" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="250" y="490" width="130" height="40" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="local-storage" value="Local Storage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=2" vertex="1" parent="1">
-          <mxGeometry x="430" y="490" width="100" height="40" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="arrow-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2E7D32;" edge="1" parent="1" source="auth-api" target="auth-context">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="390" y="420"/>
-              <mxPoint x="135" y="420"/>
-              <mxPoint x="135" y="490"/>
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="arrow-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2E7D32;" edge="1" parent="1" source="auth-context" target="auth-provider">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-        <mxCell id="arrow-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#2E7D32;" edge="1" parent="1" source="auth-provider" target="local-storage">
-          <mxGeometry relative="1" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="label-10" value="8. Update Context" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11" vertex="1" parent="1">
-          <mxGeometry x="200" y="420" width="120" height="20" as="geometry"/>
-        </mxCell>
-        <mxCell id="label-11" value="9. Store User" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11" vertex="1" parent="1">
-          <mxGeometry x="440" y="460" width="100" height="20" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="redirect-arrow" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#E65100;dashed=1;" edge="1" parent="1" source="local-storage" target="register-page">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="480" y="540"/>
-              <mxPoint x="480" y="590"/>
-              <mxPoint x="290" y="590"/>
-              <mxPoint x="290" y="170"/>
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="redirect-label" value="10. Redirect to /login" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11" vertex="1" parent="1">
-          <mxGeometry x="360" y="580" width="140" height="20" as="geometry"/>
-        </mxCell>
-
-       
-        <mxCell id="legend-box" value="LEGEND" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#9E9E9E;strokeWidth=1;fontSize=12;fontStyle=1" vertex="1" parent="1">
-          <mxGeometry x="820" y="440" width="300" height="180" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="legend-frontend" value="Frontend Layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=1" vertex="1" parent="1">
-          <mxGeometry x="840" y="480" width="100" height="25" as="geometry"/>
-        </mxCell>
-        <mxCell id="legend-backend" value="Backend Layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#E65100;strokeWidth=1" vertex="1" parent="1">
-          <mxGeometry x="840" y="515" width="100" height="25" as="geometry"/>
-        </mxCell>
-        <mxCell id="legend-db" value="Database/Email" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1BEE7;strokeColor=#6A1B9A;strokeWidth=1" vertex="1" parent="1">
-          <mxGeometry x="840" y="550" width="100" height="25" as="geometry"/>
-        </mxCell>
-        <mxCell id="legend-context" value="Context Layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;strokeWidth=1" vertex="1" parent="1">
-          <mxGeometry x="840" y="585" width="100" height="25" as="geometry"/>
-        </mxCell>
-
-        <mxCell id="legend-http" value="HTTP Request/Response" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11" vertex="1" parent="1">
-          <mxGeometry x="970" y="480" width="140" height="20" as="geometry"/>
-        </mxCell>
-        <mxCell id="legend-sequence" value="Sequence Flow" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11" vertex="1" parent="1">
-          <mxGeometry x="970" y="515" width="140" height="20" as="geometry"/>
+        
+        <mxCell id="label-redirect" value="REDIRECT" style="text;html=1;strokeColor=none;fillColor=#FFCC80;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1240" y="760" width="60" height="25" as="geometry"/>
         </mxCell>
 
       </root>
