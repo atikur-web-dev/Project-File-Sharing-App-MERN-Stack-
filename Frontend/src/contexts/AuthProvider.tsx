@@ -1,66 +1,57 @@
 // src/contexts/AuthProvider.tsx
-// এই ফাইলের কাজ: অথেনটিকেশনের আসল লজিক
-// - অ্যাপ চালুর সময় ইউজার চেক করা
-// - লগআউট হ্যান্ডেল করা
-// - পুরো এপে ইউজার ডাটা সরবরাহ
+// Purpose of this file:
+// - Handle the main authentication logic
+// - Check user authentication when the app starts
+// - Handle logout
+// - Provide user data across the entire app
 
 import React, { useState, useEffect, useCallback } from "react";
 import { AuthContext, type AuthContextType } from "./AuthContext";
 import type { User } from "../types";
 import { getCurrentUserApi, logoutApi } from "../api/authApi";
 
-// ============================================================
-// Props টাইপ
-// ============================================================
+// Type for AuthProvider props
 interface AuthProviderProps {
   children: React.ReactNode;
 }
 
-// ============================================================
-// AuthProvider কম্পোনেন্ট
-// ============================================================
+// AuthProvider component
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // ============================================================
-  // অ্যাপ চালুর সময়: ব্যাকএন্ড থেকে ইউজার চেক
-  // ============================================================
+  // Check authentication when the app starts
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const currentUser = await getCurrentUserApi(); // GET /auth/me
-        setUser(currentUser); // ইউজার থাকলে সেট হবে, না থাকলে null
+        setUser(currentUser); // Set user if logged in, otherwise null
       } catch {
-        setUser(null); // এরর হলে null
+        setUser(null); // Set null if request fails
       } finally {
-        setIsLoading(false); // চেক শেষ
+        setIsLoading(false); // Authentication check completed
       }
     };
 
     checkAuth();
-  }, []); // [] = শুধু প্রথমবার চলবে
+  }, []); // Runs only once on initial render
 
-  // ============================================================
-  // লগআউট ফাংশন
-  // ============================================================
+  // Logout function
   const logout = useCallback(async (): Promise<void> => {
     try {
       await logoutApi(); // POST /auth/logout
     } catch (error) {
       console.error("Logout API failed:", error);
     } finally {
-      setUser(null); // যাই হোক, ইউজার সরাও
+      setUser(null); // Remove user data no matter what happens
     }
   }, []);
 
-  // ============================================================
-  // কনটেক্সট ভ্যালু
-  // ============================================================
+  // Context value
   const value: AuthContextType = {
     user,
     isLoading,
-    isAuthenticated: user !== null, // user থাকলে true
+    isAuthenticated: user !== null, // true if user exists
     setUser,
     logout,
   };

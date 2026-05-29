@@ -1,9 +1,6 @@
 // src/config/theme.config.ts
-// এই ফাইলের কাজ: থিম সম্পর্কিত সব কনফিগারেশন এক জায়গায় রাখা
-
-// ============================================================
-// থিম টাইপ
-// ============================================================
+// Purpose of this file: Keep all theme-related configurations in one place
+// Theme Types
 export const THEME = {
   LIGHT: "light" as const,
   DARK: "dark" as const,
@@ -12,16 +9,14 @@ export const THEME = {
 
 export type Theme = (typeof THEME)[keyof typeof THEME];
 
-// ============================================================
-// থিম কনফিগারেশন
-// ============================================================
+// Theme Configuration
 export const THEME_CONFIG = {
-  // লোকাল স্টোরেজ কী
+  // Local storage key
   STORAGE_KEY: "app-theme",
 
-  // ডিফল্ট থিম
+  // Default theme
   DEFAULT: THEME.LIGHT,
 
-  // ডার্ক মোডের জন্য CSS ক্লাস
+  // CSS class for dark mode
   DARK_CLASS: "dark",
 } as const;

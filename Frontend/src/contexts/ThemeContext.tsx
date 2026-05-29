@@ -1,28 +1,29 @@
 // src/contexts/ThemeContext.tsx
-// এই ফাইলের কাজ: থিম সম্পর্কিত গ্লোবাল কনটেক্সট তৈরি করা
-// এখানে শুধু Context Create করা হয় - কোনো লজিক নেই
-// লজিক থাকবে ThemeProvider.tsx ফাইলে
+// Purpose of this file:
+// - Create a global context for theme management
+// - Only Context is created here, no logic
+// - All logic will stay inside ThemeProvider.tsx
 
 import { createContext } from "react";
 
-// ============================================================
-// থিমের টাইপ ডেফিনিশন
-// ============================================================
-// Theme: শুধু "light" অথবা "dark" হতে পারে
+// Theme type definition
+
+// Theme can only be "light" or "dark"
 export type Theme = "light" | "dark";
 
-// ============================================================
-// কনটেক্সটে কী কী ডাটা আর ফাংশন থাকবে
-// ============================================================
+// Define what data and functions the context will provide
 export interface ThemeContextType {
-  theme: Theme;              // বর্তমান থিম (light/dark)
-  toggleTheme: () => void;   // থিম টগল করার ফাংশন
-  setTheme: (theme: Theme) => void; // সরাসরি থিম সেট করার ফাংশন
+  theme: Theme; // Current theme (light/dark)
+  toggleTheme: () => void; // Function to toggle theme
+  setTheme: (theme: Theme) => void; // Function to set theme directly
 }
 
-// ============================================================
-// কনটেক্সট তৈরি
-// ============================================================
-// createContext() - React এর বিল্ট-ইন ফাংশন
-// undefined - ডিফল্ট ভ্যালু (Provider ছাড়া ব্যবহার করলে এরর দেবে)
-export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+// Create the context
+
+// createContext() = built-in React function
+
+// undefined = default value
+// If used without Provider, it will throw an error
+export const ThemeContext = createContext<ThemeContextType | undefined>(
+  undefined
+);

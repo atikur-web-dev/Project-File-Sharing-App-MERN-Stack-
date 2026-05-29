@@ -6,9 +6,7 @@ import type {
   FileQueryOptions,
 } from "../types";
 
-// ============================
 // Get user files (paginated)
-// ============================
 export const getUserFilesApi = async (
   options: FileQueryOptions = {},
 ): Promise<PaginatedFilesResponse> => {
@@ -38,9 +36,7 @@ export const getUserFilesApi = async (
   return res.data.data;
 };
 
-// ============================
 // Upload files
-// ============================
 export const uploadFilesApi = async (
   files: File[],
 ): Promise<FileUploadResponse[]> => {
@@ -63,16 +59,13 @@ export const uploadFilesApi = async (
   return res.data.data;
 };
 
-// ============================
 // Delete file
-// ============================
 export const deleteFileApi = async (uuid: string): Promise<void> => {
   await api.delete(`/files/${uuid}`);
 };
 
-// ============================
+
 // Get public file info
-// ============================
 export const getPublicFileInfoApi = async (
   uuid: string,
 ): Promise<FileType> => {
@@ -80,9 +73,8 @@ export const getPublicFileInfoApi = async (
   return res.data.data;
 };
 
-// ============================
+
 // File URLs (no API call)
-// ============================
 export const getFileDownloadUrl = (uuid: string): string =>
   `${(import.meta as any).env.VITE_API_BASE_URL}/files/download/${uuid}`;
 

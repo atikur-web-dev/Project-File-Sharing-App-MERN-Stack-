@@ -1,45 +1,48 @@
 // src/contexts/ThemeProvider.tsx
-// এই ফাইলের কাজ: থিম পরিবর্তনের সব লজিক
-// - localStorage এ থিম সংরক্ষণ
-// - body তে dark ক্লাস যোগ/বাদ
-// - পুরো এপে থিম সরবরাহ
+// Purpose of this file:
+// - Handle all theme-related logic
+// - Save theme in localStorage
+// - Add/remove dark class on the body
+// - Provide theme across the entire app
 
 import React, { useState, useEffect, useCallback } from "react";
 import { ThemeContext, type Theme } from "./ThemeContext";
 
-// ============================================================
-// Props টাইপ
-// ============================================================
+// Props type
 interface ThemeProviderProps {
-  children: React.ReactNode;        // ভিতরের সব কম্পোনেন্ট
-  defaultTheme?: Theme;             // ডিফল্ট থিম (optional)
-  storageKey?: string;              // localStorage এর কী (optional)
+  children: React.ReactNode; // All nested components
+  defaultTheme?: Theme; // Default theme (optional)
+  storageKey?: string; // localStorage key name (optional)
 }
 
-// ============================================================
-// ThemeProvider কম্পোনেন্ট
-// ============================================================
+// ThemeProvider component
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   children,
-  defaultTheme = "light",        // ডিফল্ট হালকা
-  storageKey = "app-theme",      // localStorage এর নাম
+  defaultTheme = "light", // Default light theme
+  storageKey = "app-theme", // localStorage key name
 }) => {
-  // ============================================================
-  // স্টেট: বর্তমান থিম
-  // ============================================================
-  // useState-এর ভিতরে ফাংশন দিলে শুধু প্রথমবার কল হয়
-  // এখানে আমরা localStorage চেক করি + সিস্টেম প্রেফারেন্স চেক করি
+  // State: current theme
+
+  // If a function is passed into useState,
+  // it only runs on the initial render
+
+  // Here we:
+  // - Check localStorage
+  // - Check system theme preference
   const [theme, setThemeState] = useState<Theme>(() => {
-    // SSR (Server Side Rendering) চেক - ব্রাউজার না থাকলে ডিফল্ট
+    // SSR (Server Side Rendering) check
+    // If browser is not available, return default theme
     if (typeof window === "undefined") return defaultTheme;
 
-    // localStorage থেকে আগের থিম পড়া
+    // Read previously saved theme from localStorage
     const stored = localStorage.getItem(storageKey) as Theme | null;
+
+    // Use saved theme if valid
     if (stored && (stored === "light" || stored === "dark")) {
-      return stored; // localStorage এ থাকলে সেটাই ব্যবহার
+      return stored;
     }
 
-    // সিস্টেম প্রেফারেন্স চেক (ডিভাইসের ডার্ক মোড সেটিং)
+    // Check system dark mode preference
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       return "dark";
     }
@@ -47,48 +50,39 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     return defaultTheme;
   });
 
-  // ============================================================
-  // ইফেক্ট: থিম চেঞ্জ হলে body তে dark ক্লাস যোগ/বাদ
-  // ============================================================
+  // Effect: add/remove dark class when theme changes
   useEffect(() => {
     const root = document.documentElement; // <html> element
 
     if (theme === "dark") {
-      root.classList.add("dark");  // TailwindCSS dark mode ON
+      root.classList.add("dark"); // TailwindCSS dark mode ON
     } else {
       root.classList.remove("dark"); // TailwindCSS dark mode OFF
     }
 
-    // localStorage-এ থিম সংরক্ষণ
+    // Save theme in localStorage
     localStorage.setItem(storageKey, theme);
-  }, [theme, storageKey]); // theme বা storageKey চেঞ্জ হলে চলবে
+  }, [theme, storageKey]); // Runs when theme or storageKey changes
 
-  // ============================================================
-  // থিম সেট করার ফাংশন (মেমোাইজড যাতে বারবার তৈরি না হয়)
-  // ============================================================
+  // Function to set theme
+  // useCallback prevents unnecessary re-creation
   const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme);
   }, []);
 
-  // ============================================================
-  // থিম টগল করার ফাংশন
-  // ============================================================
+  // Function to toggle theme
   const toggleTheme = useCallback(() => {
     setThemeState((prev) => (prev === "light" ? "dark" : "light"));
   }, []);
 
-  // ============================================================
-  // কনটেক্সট ভ্যালু
-  // ============================================================
+  // Context value
   const value = {
     theme,
     toggleTheme,
     setTheme,
   };
 
-  // ============================================================
-  // Provider দিয়ে পুরো এপ wrap
-  // ============================================================
+  // Wrap the entire app with ThemeContext Provider
   return (
     <ThemeContext.Provider value={value}>
       {children}
