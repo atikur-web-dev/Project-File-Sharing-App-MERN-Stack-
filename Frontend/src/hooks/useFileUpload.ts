@@ -1,6 +1,6 @@
 // src/hooks/useFileUpload.ts
-// এই হুকের কাজ: ফাইল আপলোডের জটিল লজিক আলাদা করে রাখা
-// FileUpload কম্পোনেন্ট থেকে স্টেট ম্যানেজমেন্ট আলাদা করতে
+// Purpose of this hook: Keep all file upload logic separate
+// Helps separate state management from the FileUpload component
 
 import { useState, useCallback } from "react";
 import type { FileRejection } from "react-dropzone";
@@ -8,33 +8,27 @@ import { FILE_CONFIG } from "../lib/constants";
 import { uploadMultipleFilesApi } from "../api/fileApi";
 import type { FileUploadResponse } from "../types";
 
-// ============================================================
-// ফাইল প্রিভিউ সহ টাইপ
-// ============================================================
+// File type with preview support
 interface FileWithPreview extends File {
-  preview?: string; // ইমেজ ফাইলের প্রিভিউ URL
+  preview?: string; // Preview URL for image files
 }
 
-// ============================================================
-// useFileUpload হুক
-// ============================================================
+// useFileUpload hook
 export function useFileUpload() {
-  const [files, setFiles] = useState<FileWithPreview[]>([]); // সিলেক্ট করা ফাইল
-  const [isUploading, setIsUploading] = useState(false);     // আপলোড হচ্ছে কিনা
-  const [uploadProgress, setUploadProgress] = useState(0);   // প্রোগ্রেস (0-100)
-  const [error, setError] = useState<string | null>(null);   // এরর মেসেজ
+  const [files, setFiles] = useState<FileWithPreview[]>([]); // Selected files
+  const [isUploading, setIsUploading] = useState(false); // Upload status
+  const [uploadProgress, setUploadProgress] = useState(0); // Progress (0-100)
+  const [error, setError] = useState<string | null>(null); // Error message
 
-  // ============================================================
-  // ফাইল ড্রপ/সিলেক্ট হ্যান্ডলার
-  // ============================================================
+  // File drop/select handler
   const handleFilesSelected = useCallback(
     (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
       setError(null);
 
-      // ভ্যালিডেশন: ফাইল সাইজ চেক
+      // Validation: Check file size
       if (rejectedFiles.length > 0) {
         const sizeRejected = rejectedFiles.filter(
-          (r) => r.file.size > FILE_CONFIG.MAX_FILE_SIZE
+          (r) => r.file.size > FILE_CONFIG.MAX_FILE_SIZE,
         );
         if (sizeRejected.length > 0) {
           setError(`File size exceeds ${FILE_CONFIG.MAX_FILE_SIZE_MB}MB limit`);
@@ -44,34 +38,37 @@ export function useFileUpload() {
         return;
       }
 
-      // ভ্যালিডেশন: সর্বোচ্চ ফাইল সংখ্যা
-      if (acceptedFiles.length + files.length > FILE_CONFIG.MAX_FILES_PER_UPLOAD) {
+      // Validation: Maximum file count
+      if (
+        acceptedFiles.length + files.length >
+        FILE_CONFIG.MAX_FILES_PER_UPLOAD
+      ) {
         setError(`Maximum ${FILE_CONFIG.MAX_FILES_PER_UPLOAD} files allowed`);
         return;
       }
 
-      // প্রিভিউ URL যোগ করা (ইমেজ ফাইলের জন্য)
+      // Add preview URLs (for image files)
       const newFiles = acceptedFiles.map((file) =>
         Object.assign(file, {
           preview: file.type.startsWith("image/")
             ? URL.createObjectURL(file)
             : undefined,
-        })
+        }),
       );
 
       setFiles((prev) => [...prev, ...newFiles]);
     },
-    [files.length]
+    [files.length],
   );
 
   // ============================================================
-  // একটি ফাইল রিমুভ
+  // Remove a single file
   // ============================================================
   const removeFile = useCallback((index: number) => {
     setFiles((prev) => {
       const newFiles = [...prev];
       if (newFiles[index].preview) {
-        URL.revokeObjectURL(newFiles[index].preview!); // মেমোরি ফ্রি
+        URL.revokeObjectURL(newFiles[index].preview!); // Free memory
       }
       newFiles.splice(index, 1);
       return newFiles;
@@ -80,7 +77,7 @@ export function useFileUpload() {
   }, []);
 
   // ============================================================
-  // সব ফাইল ক্লিয়ার
+  // Clear all files
   // ============================================================
   const clearAll = useCallback(() => {
     files.forEach((file) => {
@@ -91,7 +88,7 @@ export function useFileUpload() {
   }, [files]);
 
   // ============================================================
-  // ফাইল আপলোড হ্যান্ডলার
+  // File upload handler
   // ============================================================
   const uploadFiles = useCallback(async (): Promise<FileUploadResponse[]> => {
     if (files.length === 0) {
@@ -103,7 +100,7 @@ export function useFileUpload() {
     setUploadProgress(0);
     setError(null);
 
-    // ফেইক প্রোগ্রেস (ইউজারকে দেখানোর জন্য)
+    // Fake progress (for better user experience)
     const progressInterval = setInterval(() => {
       setUploadProgress((prev) => Math.min(prev + 10, 90));
     }, 200);
@@ -114,7 +111,7 @@ export function useFileUpload() {
       clearInterval(progressInterval);
       setUploadProgress(100);
 
-      // প্রিভিউ URL ক্লিনআপ
+      // Cleanup preview URLs
       files.forEach((file) => {
         if (file.preview) URL.revokeObjectURL(file.preview);
       });
